@@ -7,13 +7,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- BootStrap core CSS-->
-    # url_for - references static path w/ filename , {{}} - allows you to run a ginja statement
-    <link rel="stylesheet" href="{{url_for('.static', filename='css/bootstrap.min.css')}}">
+
     <title>Open SoftWare</title>
+    <!-- Bootstrap core CSS-->
+    <link  href="{{url_for('static', filename='css/bootstrap.min.css') }}", rel="stylesheet">
+    <!-- Bootstrap theme --> 
+    <link  href="{{url_for('static', filename='css/bootstrap-theme.min.css') }}", rel="stylesheet">
+    <!-- Custom styles for this template -->
+
+
+
+
 
 </head>
 <body>
+		<div class ="container theme-showcase" role="main">
+			<div class ="jumbotron">
+				<h1>Testing Page </h1>
+			</div>
+		</div> <!-- /container -->
+
 
 </body>
 </html>
