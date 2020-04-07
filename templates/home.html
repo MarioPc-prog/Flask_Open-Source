@@ -14,19 +14,96 @@
     <!-- Bootstrap theme --> 
     <link  href="{{url_for('static', filename='css/bootstrap-theme.min.css') }}", rel="stylesheet">
     <!-- Custom styles for this template -->
+    
 
+    <nav class ="navbar navbar-inverse">
+    		<div class="navbar-header">
+    			<a class="navbar-brand" href="#">OpenSource Repo </a>
+    		</div>
 
-
+    		<ul class="nav navbar-nav navbar-right">
+    			<li class="active"><a href="#">Home</a></li>
+    			<!-- Pages to be linked later-->
+    			<li><a href="#">Page 1 </a></li>
+    			<li><a href="#">Page 2 </a></li>
+    			<li><a href="#">Page 3 </a></li>
+    		</ul>
+    </nav>
 
 
 </head>
-<body>
-		<div class ="container theme-showcase" role="main">
-			<div class ="jumbotron">
-				<h1>Testing Page </h1>
-			</div>
-		</div> <!-- /container -->
 
+
+<body>
+		
+		
+		<div class ="container-fluid theme-showcase" role="main">
+			<div class ="jumbotron text-center">
+				<h1>Page Title</h1>
+				<!-- May move this description elsewhere -->
+				<p> .........Description goes here............ <p>
+			</div>
+
+
+
+		</div> 
+
+		<div class ="container-fluid">
+			<div class ="row">
+				<div class="col-sm-3" align="left">
+					<div class= "panel panel-default">
+							<div class="panel-heading text-center"><h3>Team OpenSource Repo</h3></div>
+							<div class="panel-body">
+								<p align="left">Matthew Piatt<span style="float:right"> Ben Caruso</span></p>
+								<p align="left">Mario Vega<span style="float:right"> Matthew Halligan</span></p>
+							</div>
+
+					</div>
+
+				</div>
+
+
+				<div class="col-sm-6" align="center">
+					<h3>Search bar/button will go here</h3>
+					<form class ="form-inline">
+						<div class="form-group">
+							<!-- Label for what the user wants to download. May need to change! -->
+							<label for="query"></label>
+							<!-- Need to know what to put for the id -->
+							<input type="text" class="form-control" id="" placeholder="Search for...">
+						</div>
+
+						<button type="submit" class="btn btn-primary">
+							<span class="glyphicon glyphicon-search"></span> Search
+						</button>
+					</form>
+				</div>
+
+				<div class ="col-sm-3" align="right">
+					<h3>Something will go here - maybe a picture?</h3>
+				</div>
+			</div>
+
+			<br>
+			<br>
+			<hr>
+			<div class="row">
+				<p> Maybe a sample of data pertinet to what's in the database?</p>
+				<img src = "https://i.imgur.com/8yCj0Ao.jpg" alt = "cool space photo">
+			</div>
+
+		</div>
 
 </body>
+
+<!-- Footer -->
+<footer class="page-footer" style="font:small ">
+	<hr>
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="">Website name</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
 </html>
