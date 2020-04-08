@@ -10,3 +10,7 @@ def home():
 @main.route('/blog')
 def blog():
     return render_template('blog.html')
+
+@main.route('/sign')
+def sign():
+    return render_template('sign.html')
