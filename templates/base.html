@@ -2,24 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" CONTENT="IE=EDGE">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta CONTENT="IE=EDGE" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
 
     <title>{% block title %}{% endblock %}</title>
 
-    <link  href="{{url_for('static', filename='css/bootstrap.min.css') }}", rel="stylesheet">
+    <link , href="{{url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Bootstrap theme -->
-    <link  href="{{url_for('static', filename='css/bootstrap-theme.min.css') }}", rel="stylesheet">
-	 <!-- Bootstrap core CSS-->
+    <link , href="{{url_for('static', filename='css/bootstrap-theme.min.css') }}" rel="stylesheet">
+    <!-- Bootstrap core CSS-->
     {% block css %}{% endblock %}
-    <nav class ="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">OpenSource Repo </a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li class="home"><a id="homeLink"  href="{{url_for('main.home') }}">Home</a></li>
+            <li class="home"><a href="{{url_for('main.home') }}" id="homeLink">Home</a></li>
             # Redirect to the home page if the home button is pressed --javascript-
             <!-- Pages to be linked later-->
             <li><a class="blog" href="{{url_for('main.blog') }}">Blog</a></li>
@@ -29,15 +29,15 @@
     </nav>
 </head>
 <body>
-    {% block body %}{% endblock %}
+{% block body %}{% endblock %}
 </body>
 <!-- Footer -->
 <footer class="page-footer" style="font:small ">
     <hr>
-   <!-- Copyright -->
-   <div class="footer-copyright text-center py-3">© 2020 Copyright:
-    <a href="">Website name</a>
-   </div>
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a href="">Website name</a>
+    </div>
     <!-- Copyright -->
 </footer>
 </html>
