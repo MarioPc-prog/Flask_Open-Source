@@ -19,10 +19,10 @@
     		</div>
 
     		<ul class="nav navbar-nav navbar-right">
-    			<li class="active"><a id="homeLink" onclick="home_click" href="#">Home</a></li>
+    			<li class="active"><a id="homeLink" href="#">Home</a></li>
 				# Redirect to the home page if the home button is pressed --javascript-
     			<!-- Pages to be linked later-->
-    			<li><a class="blog" onclick="blog_click" href="{{url_for('blog') }}">Page 1 </a></li>
+    			<li><a class="blog" href="{{url_for('templates' , filename='blog.html') }}">Page 1 </a></li>
     			<li><a href="#">Page 2 </a></li>
     			<li><a href="#">Page 3 </a></li>
     		</ul>
