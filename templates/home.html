@@ -3,11 +3,12 @@
 {% block css %}
 <link , href="{{url_for('static', filename='css/bootstrap-theme.min.css') }}" rel="stylesheet">
 <link , href="{{url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+<link , href="{{url_for('static', filename='css/home.css') }}" rel="stylesheet">
 {% endblock %}
 {% block body %}
 <div class="container-fluid theme-showcase" role="main">
     <div class="jumbotron text-center">
-        <h1>Page Title</h1>
+        <h1 class="title_front">Page Title</h1>
         <!-- May move this description elsewhere -->
         <p> .........Description goes here............
         <p>
