@@ -14,3 +14,7 @@ def blog():
 @main.route('/sign')
 def sign():
     return render_template('sign.html')
+
+@main.route('/contact')
+def contact():
+	return render_template('contact.html')
