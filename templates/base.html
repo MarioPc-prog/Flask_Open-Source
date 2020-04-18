@@ -21,12 +21,41 @@
             <li class="home"><a href="{{url_for('main.home') }}" id="homeLink">Home</a></li>
             # Redirect to the home page if the home button is pressed --javascript-
             <!-- Pages to be linked later-->
-            <li><a class="blog" href="{{url_for('main.blog') }}"h>Blog</a></li>
-            <li><a class='Contact'>Contact us</a></li>
+            <li><a class="blog" href="{{url_for('main.about') }}">about</a></li>
+            <li><a class='Contact' href="{{url_for('main.contact') }}">Contact us</a></li>
             <li><a class="sign" href="{{url_for('main.sign') }}">Sign Up</a></li>
         </ul>
     </nav>
 </head>
+<style>
+    body{
+        background-image: url('https://i.pinimg.com/originals/bb/61/8d/bb618db7d825e2e03c8d86f781a65e06.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+        background-color: transparent;
+        background-position: center;
+    }
+    /*<!-- To be ported to css?  -->*/
+        .affix {
+        top:0;
+        width: 100%;
+        z-index: 9999 !important;
+      }
+      .navbar {
+        margin-bottom: 0px;
+
+      }
+
+      .affix ~ .container-fluid {
+       position: relative;
+       top: 50px;
+      }
+
+      .footer{
+        position: absolute;
+      }
+</style>
 <body>
 {% block body %}{% endblock %}
 </body>
