@@ -16,35 +16,38 @@
 	<div class ="col-md-8 col-md-offset-2" align="center">
 		<div class ="panel panel-info" style="max-width: 75%">
 			<div class ="panel-body" align="center">
-				<form>
+				<form method="POST" action="/contact">
 					<div class="form-group row text-center" style="max-width: 75%;">
 						<label for="Email" class="col-sm-12 col-form-label">Email</label>
 						<div class="form-group">
-							<input type="text" id="Email" class="form-control" placeholder="you@example.com">
+							<input type="text" id="Email" class="form-control" placeholder="you@example.com" name="email" required>
 						</div>
 					</div>
 
 					<div class="form-group row text-center" style="max-width: 75%;">
 						<label for="topic" class ="col-sm-12 col-form-label">Subject</label>
 						<div class="form-group">
-							<input type="text" id="Subject" class="form-control" placeholder="">
+							<input type="text" id="Subject" class="form-control" name="subject" required>
 						</div>
 					</div>
 
 					<div class="form-group row text-center" style="max-width: 75%;">
 						<label for="content" class="col-sm-12 col-form-label">How can we help?</label>
 						<div class="form-group">
-							<textarea type="text" id="Content" class="form-control" rows="5"> </textarea>
+							<textarea type="text" id="Content" class="form-control" rows="5" name="messageContent" required> </textarea>
 						</div>
 					</div>
-				</form>
 
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
 			</div>
+
 		</div>
 	</div>
 <!-- This is fake space to move content down, otherwise footer is not pushed to bottom of page -->
-<!-- Alternate solution to be implemented -->
+<!-- Alternate solution to be implemented? -->
 	<div row>
+		<br><br><br><br>
 		<br><br><br><br>
 		<br><br><br><br>
 		<br><br><br><br>
