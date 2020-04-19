@@ -1,23 +1,16 @@
 {% extends 'base.html' %}
 {% block title %}Open Software{% endblock %}
-
 {%block css%}
 <link , href="{{url_for('static', filename='css/home.css') }}" rel="stylesheet">
 {% endblock %}
-
 {% block body %}
-
 <div class="container-fluid theme-showcase" role="main">
     <div class="jumbotron text-center" style="background-color: transparent;">
         <h1>Page Title</h1>
-        <!-- May move this description elsewhere -->
-        <p> .........Description goes here............
+        <p>
         <p>
     </div>
-
-
 </div>
-
 <div class="container-fluid">
     <div class="row">
         <div align="left" class="col-sm-3">
@@ -50,10 +43,23 @@
                 <form>
                     <div align="right" class="col-sm-3">
                         <div class="panel panel-default" style="background-blend-mode: overlay;">
-                            <div class="panel-heading text-center"><h3>Team OpenSource Repo</h3></div>
+                            <div class="panel-heading text-center"><h3>User Login</h3></div>
                             <div class="panel-body">
-                                <p align="left">Matthew Piatt<span style="float:right"> Ben Caruso</span></p>
-                                <p align="left">Mario Vega<span style="float:right"> Matthew Halligan</span></p>
+                                <p align="center">
+                                    <label for="fname">First name:</label><br>
+                                </p>
+                                <p align="center">
+                                    <input id="fname" name="fname" type="text" value="John"><br>
+                                </p>
+                                <p align="center">
+                                    <label for="lname">Last name:</label><br>
+                                </p>
+                                <p align="center">
+                                    <input id="lname" name="lname" type="text" value="Doe"><br><br>
+                                </p>
+                                <input type="submit" value="Login">
+                                <input type="submit" value="Forgot Account">
+
                             </div>
                         </div>
                     </div>
