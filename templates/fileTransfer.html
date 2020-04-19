@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Open Software{% endblock %}
+
+{% block body %}
+
+<div class ="container theme-showcase" role="main">
+	<div class ="jumbotron text-center" style="background-color: transparent;">
+		<h1 style="color: white">Upload or Download File</h1>
+		<p style="color: white"><b></b></p>
+	</div>
+</div>
+
+<br><br><br><br>
+
+<div row>
+	<div class="col-md-6">
+		<h2 style="font:bold; color:white" align="center">Upload File</h2>
+		<hr>
+
+		<div class ="col-md-offset-2">
+			<div class ="panel panel-default" style ="width:75%">
+
+				<div class ="panel-body text-center" style="">
+						<img src="https://miro.medium.com/max/2738/1*PPud-Z83-82NSwvzV9dnlg.png" class ="img-thumbnail" alt="upload file image" style ="height:200px; width:200px; float: center">
+				</div>
+
+				<div class ="panel-footer">
+				<form action= "/uploader" method = "POST" enctype = "multipart/form-data">
+					<input type="file" id="myfile" name="filename">
+					<input type="submit">
+				</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class ="col-md-6">
+		<h2 style="font:bold; color:white" align="center">Download File</h2>
+		<hr>
+
+		<div class ="col-md-offset-2">
+			<div class ="panel panel-default" style ="width:75%">
+
+				<div class ="panel-body text-center" style="">
+						<img src="https://miro.medium.com/max/2738/1*PPud-Z83-82NSwvzV9dnlg.png" class ="img-thumbnail" alt="upload file image" style ="height:200px; width:200px; float: center">
+				</div>
+
+				<div class ="panel-footer">
+
+				<form action= "/uploader" method = "POST">
+					<button type="submit" class="btn btn-default">Download</button>
+
+				</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+
+
+{% endblock %}

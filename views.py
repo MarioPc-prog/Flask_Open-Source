@@ -24,7 +24,8 @@ def contact_post():
 	subject = request.form.get('subject')
 	messageContent = request.form.get('messageContent')
 
-	return f"Email: {email} Subject: {subject} messageContent: {messageContent}"
+	# function call - give that to backend
+	return f"Email: {email} Subject: {subject} messageContent: {messageContent}" 
 
 
 @main.route('/sign', methods=['POST'])
@@ -32,3 +33,7 @@ def sign_post():
     email = request.form.get('email')
     password = request.form.get('password')
     return f'Email: {email} Password: {password}'
+
+@main.route('/fileTransfer')
+def fileTransfer():
+	return render_template('fileTransfer.html')
