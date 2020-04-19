@@ -8,6 +8,12 @@ main = Blueprint('main', __name__)
 def home():
     return render_template('home.html')
 
+@main.route('/home/', methods=['POST'])
+def login_post():
+    email = request.form.get('email')
+    password = request.form.get('password')
+    return f'Email: {email} Password: {password}'
+
 
 @main.route('/about')
 def about():
