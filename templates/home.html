@@ -46,17 +46,29 @@
                             <div class="panel-heading text-center"><h3>User Login</h3></div>
                             <div class="panel-body">
                                 <p align="center">
-                                    <label for="fname">First name:</label><br>
+                                    <label for="email">Email:</label><br>
                                 </p>
                                 <p align="center">
-                                    <input id="fname" name="fname" type="text" value="John"><br>
+                                    <input id="emial" name="email" type="text"><br>
                                 </p>
                                 <p align="center">
-                                    <label for="lname">Last name:</label><br>
+                                    <label for="password">Password:</label><br>
                                 </p>
                                 <p align="center">
-                                    <input id="lname" name="lname" type="text" value="Doe"><br><br>
+                                    <input id="psswrd" name="psswrd" type="text"><br><br>
                                 </p>
+                                <input onclick="myFunction()" type="checkbox">Show Password
+                                <script>
+                                    /* Shows the password when user presses show password using java script  */
+                                    function myFunction() {
+                                        var x = document.getElementById("psswrd");
+                                        if (x.type === "password") {
+                                            x.type = "text";
+                                        } else {
+                                            x.type = "password";
+                                        }
+                                    }
+                                </script>
                                 <input type="submit" value="Login">
                                 <input type="submit" value="Forgot Account">
 
