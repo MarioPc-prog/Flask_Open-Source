@@ -4,6 +4,7 @@
 import os
 from flask import Flask, flash, request, redirect, url_for, send_from_directory, current_app
 from werkzeug.utils import secure_filename
+from DBfunctions import BackEndInterface
 
 # Define folder that will contain uploads within the server
 # Temp path - will change upon going live
@@ -12,6 +13,7 @@ DOWNLOAD_FOLDER = '/var/www/files/downloads'
 # Will allow more extensions going forward - this is for testing
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
+# Define flask instance
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
@@ -44,8 +46,11 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            # TODO - Make a database entry that includes the filename and other info
+            createRowFile(filename, )
             return redirect(url_for('uploaded_file',
                                     filename=filename))
+
     return '''
     <!doctype html>
     <title>Upload new File</title>
@@ -68,6 +73,40 @@ def uploaded_file(filename):
 # Function that returns file from downloads
 @app.route('/downloads/<filename>')
 def download_file(filename):
+    # TODO - Check database for filename, return path and necessary info
+
     # Make the download folder into absolute path
     downloads = os.path.join(current_app.root_path, app.config['DOWNLOAD_FOLDER'])
     return send_from_directory(directory = downloads, attached_file = filename)
+
+@app.route('/login/', methods = ["GET", "POST"])
+def login_page():
+    error = ""
+    try:
+        if request.method == "POST":
+            # username is in  reference to value = "{{request.form.username}}"
+            # on login.html within the input html tag in the form
+            attempted_username = request.form['username']
+            attempted_password = request.form['password']
+
+            # Now we've got whatever they've posted
+
+            # DEBUGGING
+            #flash(attempted_username)
+            #flash(attempted_password)
+
+            # Replace admin and password with the database credentials
+            # Search db for username AFTER cleaning username
+            # get hash and encrypted password for username
+            # make sure it equals given password
+            if attempted_username == "admin" and attempted_password == "password":
+                # homepage is just wherever you want logged in users to be redirected
+                return redirect(url_for('homepage'))
+            else:
+                error = "Invalid credentials"
+
+        return render_template("login.html", error = error)
+
+    except Exception as e:
+        flash(e)
+        return render_template("login.html", error = error)
