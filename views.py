@@ -9,7 +9,7 @@ def home():
     return render_template('home.html')
 
 @main.route('/home/', methods=['POST'])
-def login_post():
+def home_login():
     email = request.form.get('email')
     password = request.form.get('password')
     return f'Email: {email} Password: {password}'
@@ -42,5 +42,4 @@ def contact_post():
     email = request.form.get('email')
     subject = request.form.get('subject')
     messageContent = request.form.get('messageContent')
-
     return f"Email: {email} Subject: {subject} messageContent: {messageContent}"

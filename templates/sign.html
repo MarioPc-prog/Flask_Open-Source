@@ -16,7 +16,7 @@
     <div align="center" class="col-md-8 col-md-offset-2">
         <div class="panel panel-info" style="max-width: 75%">
             <div align="center" class="panel-body">
-                <form action="/contact" method="POST">
+                <form action="{{url_for('main.sign')}}" method="POST">
                     <div class="form-group row text-center" style="max-width: 75%;">
                         <label class="col-sm-12 col-form-label" for="Email">Email</label>
                         <div class="form-group">
@@ -36,7 +36,7 @@
                         <label class="col-sm-12 col-form-label" for="Email">Confirm Password </label>
                         <div class="form-group">
                             <input class="form-control" id="rpassword" name="repeatpsswrd" required type="password">
-                            <input onclick="myFunction()" type="checkbox">Show Password
+                            <input onclick="myFunction()" type="checkbox">show Password
                             <script>
                                 /* Shows the password when user presses show password using java script  */
                                 function myFunction() {

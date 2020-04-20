@@ -40,7 +40,7 @@
         </div>
         <div class="container-fluid">
             <div class="row">
-                <form action="home.html" method="post">
+                <form action="{{ url_for('main.home') }}" method="post">
                     <div align="right" class="col-sm-3">
                         <div class="panel panel-default" style="background-blend-mode: overlay;">
                             <div class="panel-heading text-center"><h3>User Login</h3></div>
@@ -55,7 +55,7 @@
                                     <label for="password">Password:</label><br>
                                 </p>
                                 <p align="center">
-                                    <input id="psswrd" name="psswrd" type="text"><br><br>
+                                    <input id="psswrd" name="password" type="text"><br><br>
                                 </p>
                                 <input onclick="myFunction()" type="checkbox">Show Password
                                 <script>
