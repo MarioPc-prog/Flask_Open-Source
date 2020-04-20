@@ -1,8 +1,6 @@
 from flask import Blueprint, render_template, request
-
 # create the first grouping for the blueprint
 main = Blueprint('main', __name__)
-
 
 @main.route('/home/')
 def home():
@@ -12,7 +10,7 @@ def home():
 def home_login():
     email = request.form.get('email')
     password = request.form.get('password')
-    return f'Email: {email} Password: {password}'
+    return render_template('login_page.html')
 
 
 @main.route('/about')

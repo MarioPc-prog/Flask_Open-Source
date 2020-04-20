@@ -5,5 +5,4 @@ def create_app():
     # register the Blueprint by importing and registering 
     from views import main
     app.register_blueprint(main)
-
     return app
