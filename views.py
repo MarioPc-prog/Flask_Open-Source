@@ -2,11 +2,11 @@ from flask import Blueprint, render_template, request
 # create the first grouping for the blueprint
 main = Blueprint('main', __name__)
 
-@main.route('/home/')
+@main.route('/')
 def home():
     return render_template('home.html')
 
-@main.route('/home/', methods=['POST'])
+@main.route('/', methods=['POST'])
 def home_login():
     email = request.form.get('email')
     password = request.form.get('password')
@@ -27,7 +27,7 @@ def sign():
 def sign_post():
     email = request.form.get('email')
     password = request.form.get('password')
-    return f'Email: {email} Password: {password}'
+#    return f"Email: {email} Password: {password}"
 
 
 @main.route('/contact')
@@ -40,4 +40,4 @@ def contact_post():
     email = request.form.get('email')
     subject = request.form.get('subject')
     messageContent = request.form.get('messageContent')
-    return f"Email: {email} Subject: {subject} messageContent: {messageContent}"
+#    return f"Email: {email} Subject: {subject} messageContent: {messageContent}"
