@@ -1,11 +1,15 @@
 from flask import Flask
-# create app object
-app = Flask(__name__)
-# register the Blueprint by importing and registering
 from views import main
+
+
+debug = True
+
+app = Flask(__name__)
 app.register_blueprint(main)
 
 
+def create_app():
 
-if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=80)
+	app.run(debug=debug, host='127.0.0.1')
+
+create_app()

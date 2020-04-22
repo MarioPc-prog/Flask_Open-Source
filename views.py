@@ -1,6 +1,13 @@
 from flask import Blueprint, render_template, request
+
 # create the first grouping for the blueprint
-main = Blueprint('main', __name__)
+
+main = Blueprint("main",
+                    __name__,
+                    template_folder="templates",
+                    static_folder="static",
+                    static_url_path="/static"
+                    )
 
 @main.route('/')
 def home():
@@ -49,10 +56,5 @@ def sign_post():
 def fileTransfer():
 	return render_template('fileTransfer.html')
 #    return f"Email: {email} Password: {password}"
-
-
-@main.route('/contact')
-def contact():
-    return render_template('contact.html')
 
 
