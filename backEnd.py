@@ -63,9 +63,9 @@ class BackEndInterface:
     def selectallfromtable(self):
         pass
 
-    def createtableUsers(self):
+    def createTableUsers(self):
         try:
-            MySQL_Create_Table_Users = """CREATE TABLE USERS ( 
+            MySQL_Create_Table_Users = """CREATE TABLE IF NOT EXISTS USERS ( 
                                  Id int(11) NOT NULL,
                                  Name varchar(250) NOT NULL,
                                  Password CHAR(64) NOT NULL,
@@ -86,7 +86,7 @@ class BackEndInterface:
                 print("MySQL connection is closed")
 
 
-    def createrowUser(self, username, password, email):
+    def createRowUser(self, username, password, email):
         try:
 
             MySQL_Create_Row_Users = "INSERT INTO 'USERS'('NAME', 'PASSWORD', 'EMAIL') VALUES (%s, %s, %s)"
@@ -118,5 +118,50 @@ class BackEndInterface:
         pass
 
     def deleterow(self):
+        pass
+
+    def createTableFiles(self):
+        try:
+            MySQL_Create_Table_Files = """CREATE TABLE IF NOT EXISTS files ( 
+                                 id int(11) NOT NULL,
+                                 name varchar(250) NOT NULL,
+                                 description TEXT(2000) NOT NULL,
+                                 price SMALLINT NOT NULL,
+                                 size VARCHAR(8) NOT NULL,
+                                 PRIMARY KEY (Id)) """
+
+            self.cursor = self.connection.cursor()
+            result = self.cursor.execute(MySQL_Create_Table_Files)
+            if self.degub:
+                print("Table for Files Created Successfully")
+
+        except mysql.connector.Error as error:
+            print("Failed to create table in MySQL: {}".format(error))
+
+        finally:
+            if (self.connection.is_connected()):
+                self.cursor.close()
+                self.connection.close()
+                print("MySQL connection is closed")
+
+    def createRowFile(self, name, description, price, size):
+        try:
+            # Create row
+            MySQL_create_row_file = "INSERT INTO 'files'(name, description, price, size) VALUES (%s, %s, %s, %s)"
+
+            self.cursor = self.connection.cursor()
+            result = self.cursor.execute(MySQL_create_row_file, (name, description, price, size))
+            if self.degub:
+                print("Row added successfully to table FILES")
+
+        except Error as e:
+            print(e)
+
+        finally:
+            if (self.connection.is_connected()):
+                self.cursor.close()
+                self.connection.close()
+                print("MySQL connection is closed")
+
         pass
 
