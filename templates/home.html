@@ -3,10 +3,12 @@
 
 {%block css%}
 <link href="{{url_for('static', filename='css/home.css') }}", rel="stylesheet">
+
 {% endblock %}
 
 {% block body %}
 		
+
 <div class ="container-fluid theme-showcase" role="main" style="max-width: 85%" >
 	<div class ="jumbotron text-center" style="background-color: transparent;">
 		<h1 style="color:white">Open Source Repository</h1>
@@ -14,49 +16,77 @@
 		<p style="color: indigo"> Welcome to this open source repository, where files dealing with a vairety of topics can be found. Try a search and see what information you can find. Remember to sign up in order to download anything. <p>
 	</div>
 
+<div class="container-fluid">
+    <div class="row">
+        <div align="left" class="col-sm-3">
+            <div class="panel panel-default" style="background-blend-mode: overlay;">
+                <div class="panel-heading text-center"><h3>Team OpenSource Repo</h3></div>
+                <div class="panel-body">
+                    <p align="left">Matthew Piatt<span style="float:right"> Ben Caruso</span></p>
+                    <p align="left">Mario Vega<span style="float:right"> Matthew Halligan</span></p>
+                </div>
+            </div>
+        </div>
 
+        <div align="center" class="col-sm-6">
+            <h3>Search bar/button will go here</h3>
+            <form class="form-inline">
+                <div class="form-group">
+                    <!-- Label for what the user wants to download. May need to change! -->
+                    <label for="query"></label>
+                    <!-- Need to know what to put for the id -->
+                    <input class="form-control" id="" placeholder="Search for..." type="text">
+                </div>
 
-</div> 
+                <button class="btn btn-primary" type="submit">
+                    <span class="glyphicon glyphicon-search"></span> Search
+                </button>
+            </form>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
 
-<div class ="container-fluid">
-	<div class ="row">
-		<div class="col-sm-3" align="left">
-			<div class= "panel panel-default" style="background-blend-mode: overlay;">
-					<div class="panel-heading text-center"><h3>Team OpenSource Repo</h3></div>
-					<div class="panel-body">
-						<p align="left">Matthew Piatt<span style="float:right"> Ben Caruso</span></p>
-						<p align="left">Mario Vega<span style="float:right"> Matthew Halligan</span></p>
-					</div>
+                <form action="{{ url_for('main.home') }}" method="post">
+                    <div align="right" class="col-sm-3">
+                        <div class="panel panel-default" style="background-blend-mode: overlay;">
+                            <div class="panel-heading text-center"><h3>User Login</h3></div>
+                            <div class="panel-body">
+                                <p align="center">
+                                    <label for="email">Email:</label><br>
+                                </p>
+                                <p align="center">
+                                    <input id="emial" name="email" type="text"><br>
+                                </p>
+                                <p align="center">
+                                    <label for="password">Password:</label><br>
+                                </p>
+                                <p align="center">
+                                    <input id="psswrd" name="password" type="text"><br><br>
+                                </p>
+                                <input onclick="myFunction()" type="checkbox">Show Password
+                                <script>
+                                    /* Shows the password when user presses show password using java script  */
+                                    function myFunction() {
+                                        var x = document.getElementById("psswrd");
+                                        if (x.type === "password") {
+                                            x.type = "text";
+                                        } else {
+                                            x.type = "password";
+                                        }
+                                    }
+                                </script>
+                                <input type="submit" value="Login">
+                                <input type="submit" value="Forgot Account">
 
-			</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
 
-		</div>
+				<br>
+				<br>
+				<hr>
 
-
-		<div class="col-sm-6" align="center">
-			<h3 style="color:white">Search bar/button will go here</h3>
-			<form class ="form-inline">
-				<div class="form-group">
-					<!-- Label for what the user wants to download. May need to change! -->
-					<label for="query"></label>
-					<!-- Need to know what to put for the id -->
-					<input type="text" class="form-control" id="" placeholder="Search for...">
-				</div>
-
-				<button type="submit" class="btn btn-primary">
-					<span class="glyphicon glyphicon-search"></span> Search
-				</button>
-			</form>
-		</div>
-
-		<div class ="col-sm-3" align="right">
-			<h3 style="color: white">Log in here</h3>
-		</div>
-	</div>
-
-	<br>
-	<br>
-	<hr>
 	<div class="row">
 		<div class = "col-sm-3">
 			<h4 style="color:white">Something should go here, otherwise the displayed items feel to large</h4>
@@ -123,16 +153,7 @@
 
 			</div>
 		</div>
-
 				
 
 	</div>
-
-</div>
-
-
 {% endblock %}
-
-
-
-

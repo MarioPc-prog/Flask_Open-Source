@@ -15,6 +15,7 @@
     {% block css %}{% endblock %}
 
 
+
     <nav class ="navbar navbar-inverse navbar-fixed-top" data-spy="affix" data-offset-top="197">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">OpenSource Repo </a>
@@ -28,9 +29,11 @@
                 <li><a href="{{url_for('main.contact') }}">Contact Us </a></li>
                 <li><a href="{{url_for('main.sign') }}">Sign up </a></li>
             </ul>
+
     </nav>
 
 </head>
+
 
 <style>
     body{
@@ -58,6 +61,7 @@
     position: absolute;
   }
 </style>
+
 
 <body>
 {% block body %}{% endblock %}
