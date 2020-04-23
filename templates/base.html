@@ -18,12 +18,12 @@
             <a class="navbar-brand" href="#">OpenSource Repo </a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li class="home"><a href="{{url_for('main.home') }}" id="homeLink">Home</a></li>
+            <li class="home"><a href="{{url_for('home') }}" id="homeLink">Home</a></li>
             # Redirect to the home page if the home button is pressed --javascript-
             <!-- Pages to be linked later-->
-            <li><a class="blog" href="{{url_for('main.about') }}">about</a></li>
-            <li><a class='Contact' href="{{url_for('main.contact') }}">Contact us</a></li>
-            <li><a class="sign" href="{{url_for('main.sign') }}">Sign Up</a></li>
+            <li><a class="blog" href="{{url_for('about') }}">about</a></li>
+            <li><a class='Contact' href="{{url_for('contact') }}">Contact us</a></li>
+            <li><a class="sign" href="{{url_for('sign') }}">Sign Up</a></li>
         </ul>
     </nav>
 </head>
