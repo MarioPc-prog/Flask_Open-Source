@@ -1,167 +1,201 @@
+
+
 import mysql.connector
+
 from mysql.connector import Error
+
 
 class BackEndInterface:
 
+
     def __init__(self, filename, debug=False):
+
         self.degub = debug
 
-        self.connection = connectDatabase(filename)
+        self.connections = []
+
+        self.databaseName = filename
+
+        self.currentTerminal = 0
 
 
-    def loaddatabase(self):
-        pass
+    def connectToServer(self):
 
-    def saveDatabase(self):
-        pass
+        username = "root"
 
-    def setdebug(self, debugFlag):
-        self.degub = debugFlag
+        password = "cs205"
 
 
-    def getdebug(self):
-        return self.degub
-
-
-    def connectDatabase(self,databaseName):
-        username = ""
-        password = ""
         try:
-            self.connection = mysql.connector.connect(host="localhost", database=databaseName, user=username, password=password)
 
-            if self.connection.is_connected():
-                db_Info = self.connection.get_server_info()
-                if self.degub:
-                    print("Connected to MySQL database at ", db_Info)
-                self.cursor = self.connection.cursor()
-                self.cursor.execute("select databse();")
-                record = self.cursor.fetchone()
-                print("You are connected to database", record)
+            newconnection = mysql.connector.connect(host='localhost',
+
+                                                 database='205final',
+
+                                                 user=username,
+
+                                                 password=password)
+
+            self.connections.append(newconnection)
+            print("made the connection")
+
+            self.currentConnection = newconnection
+
+            self.currentTerminal = newconnection.cursor()
+            print("updated current terminal")
+            print(self.currentTerminal)
 
         except Error as e:
-            print(" Error while connecting to MySQL: ", e)
 
-        finally:
-            if self.connection.is_connected():
-                self.cursor.close()
-                self.connection.close()
-                print("MySQL connection is closed")
+            print("Error while connecting to MySQL", e)
 
 
+        return ("You're connected to database", self.currentTerminal.fetchone())
 
-    def disconnectDatabase(self):
-        if self.connection.is_connected():
-            self.cursor.close()
-            self.connection.close()
-            print("MySQL connection is closed")
-
-
-
-    def searchRowsforUsername(self):
-        pass
-
-    def selectallfromtable(self):
-        pass
-
-    def createTableUsers(self):
+    def disconnectFromServer(self):
         try:
-            MySQL_Create_Table_Users = """CREATE TABLE IF NOT EXISTS USERS ( 
-                                 Id int(11) NOT NULL,
-                                 Name varchar(250) NOT NULL,
-                                 Password CHAR(64) NOT NULL,
-                                 PRIMARY KEY (Id)) """
-
-            self.cursor = self.connection.cursor()
-            result = self.cursor.execute(MySQL_Create_Table_Users)
-            if self.degub:
-                print("Table for Users Created Successfully")
-
-        except mysql.connector.Error as error:
-            print("Failed to create table in MySQL: {}".format(error))
-
-        finally:
-            if (self.connection.is_connected()):
-                self.cursor.close()
-                self.connection.close()
-                print("MySQL connection is closed")
+            self.connections[0].close()
+            print("The connection has closed")
+        except Error as e:
+            print(e)
 
 
-    def createRowUser(self, username, password, email):
+
+    def createrowUser(self, username, password, email):
         try:
 
-            MySQL_Create_Row_Users = "INSERT INTO 'USERS'('NAME', 'PASSWORD', 'EMAIL') VALUES (%s, %s, %s)"
+            MySQL_Create_Row_Users = "INSERT INTO USERS(UserName, Password, Email) VALUES (%s, %s, %s)"
 
-            self.cursor = self.connection.cursor()
-            result = self.cursor.execute(MySQL_Create_Row_Users, (username,password, email))
-            if self.degub:
-                print("Row added successfully to table USERS")
+            self.currentTerminal = self.connections[0].cursor()
+            print("updated the current terminal")
+
+            dataUser = (username, password, email)
+
+            #dataUser=("Derek","derek123", "derek@uvm.edu")
+
+            self.currentTerminal.execute(MySQL_Create_Row_Users, dataUser)
+
+
+            self.connections[0].commit()
+
+        except Error as e:
+
+            print(e)
+
+
+    def deleteRowUser(self, username, password):
+        MySQL_Delete_User = """DELETE FROM USERS WHERE UserName=%s AND Password=%s"""
+        dataCommand = (username, password)
+        try:
+            self.currentTerminal = self.connections[0].cursor()
+            print("updated the current terminal")
+            self.currentTerminal.execute(MySQL_Delete_User, dataCommand)
+            self.connections[0].commit()
 
         except Error as e:
             print(e)
 
-        finally:
-            if (self.connection.is_connected()):
-                self.cursor.close()
-                self.connection.close()
-                print("MySQL connection is closed")
 
-        pass
+    def createFileTable(self):
 
+            MySQL_Create_File_Table = """CREATE TABLE ASSETS (
 
-    def deletedatabase(self):
-        pass
+                                         FileID int NOT NULL AUTO_INCREMENT,
 
-    def deletetable(self):
-        pass
+                                         FileName varchar(255) NOT NULL,
 
-    def deletecolumn(self):
-        pass
+                                         FileLocation varchar(255) NOT NULL,
 
-    def deleterow(self):
-        pass
+                                         FileDescription varchar(255) NOT NULL,
 
-    def createTableFiles(self):
-        try:
-            MySQL_Create_Table_Files = """CREATE TABLE IF NOT EXISTS files ( 
-                                 id int(11) NOT NULL,
-                                 name varchar(250) NOT NULL,
-                                 description TEXT(2000) NOT NULL,
-                                 price SMALLINT NOT NULL,
-                                 size VARCHAR(8) NOT NULL,
-                                 PRIMARY KEY (Id)) """
+                                         PRIMARY KEY (FileID)
 
-            self.cursor = self.connection.cursor()
-            result = self.cursor.execute(MySQL_Create_Table_Files)
-            if self.degub:
-                print("Table for Files Created Successfully")
+                                         );"""
 
-        except mysql.connector.Error as error:
-            print("Failed to create table in MySQL: {}".format(error))
+            self.currentTerminal = self.connections[0].cursor()
 
-        finally:
-            if (self.connection.is_connected()):
-                self.cursor.close()
-                self.connection.close()
-                print("MySQL connection is closed")
+            print("updated the current terminal")
 
-    def createRowFile(self, name, description, price, size):
-        try:
-            # Create row
-            MySQL_create_row_file = "INSERT INTO 'files'(name, description, price, size) VALUES (%s, %s, %s, %s)"
+    
 
-            self.cursor = self.connection.cursor()
-            result = self.cursor.execute(MySQL_create_row_file, (name, description, price, size))
-            if self.degub:
-                print("Row added successfully to table FILES")
+            self.currentTerminal.execute(MySQL_Create_File_Table)
+
+    
+
+            self.connections[0].commit()
+
 
         except Error as e:
+
             print(e)
 
-        finally:
-            if (self.connection.is_connected()):
-                self.cursor.close()
-                self.connection.close()
-                print("MySQL connection is closed")
 
-        pass
+    def createRowAssetTable(self, FileName, FileLocation, FileDescription):
 
+        try:
+
+            MySQL_Create_Row_Asset = """INSERT INTO ASSETS (FileName, FileLocation, FileDescription) VALUES (%s, %s, %s)"""
+
+            
+
+            dataAsset = (FileName, FileLocation, FileDescription)
+
+            
+
+            self.currentTerminal = self.connections[0].cursor()
+
+            print("updated the current terminal")
+
+            self.currentTerminal.execute(MySQL_Create_Row_Asset, dataAsset)
+
+            self.connections[0].commit()
+
+        except Error as e:
+
+            print(e)
+
+
+    def deleteRowAsset(self, filename):
+
+        MySQL_Delete_Asset = """DELETE FROM ASSETS WHERE FileName=%s"""
+
+        dataCommand = (filename)
+
+        try:
+
+            self.currentTerminal = self.connections[0].cursor()
+
+            print("updated the current terminal")
+
+            self.currentTerminal.execute(MySQL_Delete_Asset, dataCommand)
+
+            self.connections[0].commit()
+
+
+        except Error as e:
+
+            print(e)
+
+
+
+    def selectXfromAssets(self, x):
+
+        MySQL_Select_X_Assets = """SELECT * FROM ASSETS LIMIT %s OFFSET %s"""
+        dataCommand = (x, x+1)
+
+
+        try:
+
+            self.currentTerminal = self.connections[0].cursor()
+
+            print("updated the current terminal")
+
+            assets = self.currentTerminal.execute(MySQL_Select_X_Assets, dataCommand)
+
+            print(assets)
+
+         except Error as e:
+
+            print(e)
+
+  
