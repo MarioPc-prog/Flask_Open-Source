@@ -45,7 +45,7 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             # TODO - Make a database entry that includes the filename and other info
-            createRowFile(filename, )
+            createRowAssetTable(filename, fileDescription)
             return redirect(url_for('uploaded_file',
                                     filename=filename))
     return '''
