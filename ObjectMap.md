@@ -33,8 +33,8 @@ database</p>
 
 
 <h5>Creation functions</h5>
-<p>create database</p>
-<p>create table</p>
+<p>#create database</p>
+<p>#create table</p>
 <p>create row</p>
 
 
