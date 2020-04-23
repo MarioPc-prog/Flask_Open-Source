@@ -13,6 +13,7 @@
     <!-- Bootstrap theme -->
     <link , href="{{url_for('static', filename='css/bootstrap-theme.min.css') }}" rel="stylesheet">
     {% block css %}{% endblock %}
+<<<<<<< HEAD
 
 
 
@@ -30,6 +31,20 @@
                 <li><a href="{{url_for('main.sign') }}">Sign up </a></li>
             </ul>
 
+=======
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">OpenSource Repo </a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="home"><a href="{{url_for('home') }}" id="homeLink">Home</a></li>
+            # Redirect to the home page if the home button is pressed --javascript-
+            <!-- Pages to be linked later-->
+            <li><a class="blog" href="{{url_for('about') }}">about</a></li>
+            <li><a class='Contact' href="{{url_for('contact') }}">Contact us</a></li>
+            <li><a class="sign" href="{{url_for('sign') }}">Sign Up</a></li>
+        </ul>
+>>>>>>> e3dfe25e7b7c617dc8cb5989075ffe5c465daf3d
     </nav>
 
 </head>
