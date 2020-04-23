@@ -4,6 +4,7 @@ import mysql.connector
 
 from mysql.connector import Error
 
+import html
 
 class BackEndInterface:
 
@@ -186,10 +187,10 @@ class BackEndInterface:
         return pwdhash == stored_password
 
 
-    def findUser(self, userEmail):
+    def verifyUser(self, userEmail, userPassword):
         # This function assumes that no two of the same email will be allowed
 
-        MySQL_Find_User = """SELECT username, password FROM USERS WHERE Email=%s"""
+        MySQL_Verify_User = """SELECT password FROM USERS WHERE Email=%s"""
 
         try:
 
@@ -197,15 +198,30 @@ class BackEndInterface:
 
             print("attempting to find user from terminal")
 
-            username, password = self.currentTerminal.execute(MySQL_Find_User, userEmail)
+            password = self.currentTerminal.execute(MySQL_Verify_User, userEmail)
 
-            if password != "" and username != "":
-                # User exists
-                return username, password
-
-            else:
-                print("User not found")
-
+            return self.passwordVerify(password, userPassword)
 
         except Error as e:
             print(e)
+
+    def signUser(self, userEmail, username, userPassword):
+        MySQL_Find_User = """SELECT username FROM USERS WHERE Email=%s"""
+
+        try:
+
+            if self.verifyUser(userEmail, userPassword):
+                return False
+            else:
+                # TODO - Username and email sanitization
+                s = html.escape( """& < " ' >""" )   # s = '&amp; &lt; &quot; &#x27; &gt;'
+                self.createrowUser(userEmail, username, self.passwordSaltHash(userPassword))
+
+        except Error as e:
+            print(e)
+
+    def sanitizeInput(self, input):
+        # Transform input to lowercase
+        input = input.lower()
+
+        DANGER_STRINGS = ["delete", "insert", "update", "select"]
