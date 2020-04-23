@@ -6,28 +6,94 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <meta content="" name="description">
     <meta content="" name="author">
-    <link , href="{{url_for('static', filename='css/main_login.css') }}" rel="stylesheet">
+    <link , href="{{ url_for('static', filename='css/main_login.css') }}" rel="stylesheet">
+    link , href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link , href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" rel="stylesheet">
     <title>Open Software</title>
+    <nav class="navbar navbar-inverse">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="home"><a href="{{ url_for('home') }}" id="homeLink">Home</a></li>
+            # Redirect to the home page if the home button is pressed --javascript-
+            <!-- Pages to be linked later-->
+            <li><a class="blog" href="{{ url_for('about') }}">about</a></li>
+            <li><a class='Contact' href="{{ url_for('contact') }}">Contact us</a></li>
 
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Account</a>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('home') }}">Sign out</a>
+                    <a href="{{ url_for('home') }}">Delete account</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
 </head>
 <body>
-
-<ul>
-    <li><a href="{{ url_for('home') }}">Home</a></li>
-    <li><a href="{{ url_for('about') }}">About</a></li>
-    <li><a class='Contact' href="{{ url_for('contact') }}">Contact us</a></li>
-
-    <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Account</a>
-        <div class="dropdown-content">
-            <a href="{{ url_for('home') }}">Sign out</a>
-            <a href="{{ url_for('home') }}">Delete account</a>
-        </div>
-    </li>
-</ul>
-
+<br><br><br><br>
 <h3>Dropdown Menu inside a Navigation Bar</h3>
 <p>Hover over the "Dropdown" link to see the dropdown menu.</p>
+<div row>
+    <div class="col-md-6">
+        <h2 style="font:bold; color:white" align="center">Upload File</h2>
+        <hr>
 
+        <div class="col-md-offset-2">
+            <div class="panel panel-default" style="width:75%">
+
+                <div class="panel-body text-center" style="">
+                    <form action="/uploader" method="POST" enctype="multipart/form-data">
+                        <input type="file" id="myfile" name="filename">
+                        <textarea type="text" id="description" name="fileDescription" rows=2></textarea>
+                        <input type="submit">
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="panel-footer">
+                <!-- <form action= "/uploader" method = "POST" enctype = "multipart/form-data">
+                    <input type="file" id="myfile" name="filename">
+                    <textarea type="text" id="description" name="fileDescription" rows = 2></textarea>
+                    <input type="submit">
+                </form> -->
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6">
+    <h2 style="font:bold; color:white" align="center">Download File</h2>
+    <hr>
+
+    <div class="col-md-offset-2">
+        <div class="panel panel-default" style="width:75%">
+
+            <div class="panel-body text-center" style="">
+                <img src="https://miro.medium.com/max/2738/1*PPud-Z83-82NSwvzV9dnlg.png" class="img-thumbnail"
+                     alt="upload file image" style="height:200px; width:200px; float: center">
+            </div>
+
+            <div class="panel-footer">
+
+                <form action="/uploader" method="POST">
+                    <button type="submit" class="btn btn-default">Download</button>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
 </body>
 </html>
