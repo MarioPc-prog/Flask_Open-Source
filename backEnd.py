@@ -209,3 +209,45 @@ class BackEndInterface:
         pwdhash = binascii.hexlify(pwdhash).decode('ascii')
 
         return pwdhash == stored_password
+
+
+    def verifyUser(self, userEmail, userPassword):
+        # This function assumes that no two of the same email will be allowed
+
+        MySQL_Verify_User = """SELECT password FROM USERS WHERE Email=%s"""
+
+        try:
+
+            self.currentTerminal = self.connections[0].cursor()
+
+            print("attempting to find user from terminal")
+
+            password = self.currentTerminal.execute(MySQL_Verify_User, userEmail)
+
+            return self.passwordVerify(password, userPassword)
+
+        except Error as e:
+            print(e)
+
+    def signUser(self, userEmail, username, userPassword):
+        # Sanitize input here
+        s = html.escape("""& < " ' >""")  # s = '&amp; &lt; &quot; &#x27; &gt;'
+
+        MySQL_Find_User = """SELECT username FROM USERS WHERE Email=%s"""
+
+        try:
+
+            if self.verifyUser(userEmail, userPassword):
+                return False
+            else:
+                self.createrowUser(userEmail, username, self.passwordSaltHash(userPassword))
+                return True
+
+        except Error as e:
+            print(e)
+
+    def sanitizeInput(self, input):
+        # Transform input to lowercase
+        input = input.lower()
+
+        DANGER_STRINGS = ["delete", "insert", "update", "select"]

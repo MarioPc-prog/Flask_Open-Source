@@ -13,7 +13,7 @@
 	<div class ="jumbotron text-center" style="background-color: transparent;">
 		<h1 style="color:white">Open Source Repository</h1>
 		<!-- May move this description elsewhere -->
-		<p style="color: indigo"> Welcome to this open source repository, where files dealing with a vairety of topics can be found. Try a search and see what information you can find. Remember to sign up in order to download anything. <p>
+		<p style="color: white"> Welcome to this open source repository, where files dealing with a vairety of topics can be found. Try a search and see what information you can find. Remember to sign up in order to download anything. <p>
 	</div>
 
 <div class="container-fluid">
@@ -29,7 +29,7 @@
         </div>
 
         <div align="center" class="col-sm-6">
-            <h3>Search bar/button will go here</h3>
+            <h3>Work in Progress</h3>
             <form class="form-inline">
                 <div class="form-group">
                     <!-- Label for what the user wants to download. May need to change! -->
@@ -46,7 +46,7 @@
         <div class="container-fluid">
             <div class="row">
 
-                <form action="{{ url_for('home_login') }}" method="post">
+                <form action="{{ url_for('main.home_login') }}" method="post">
                     <div align="right" class="col-sm-3">
                         <div class="panel panel-default" style="background-blend-mode: overlay;">
                             <div class="panel-heading text-center"><h3>User Login</h3></div>
@@ -88,72 +88,35 @@
 				<hr>
 
 	<div class="row">
-		<div class = "col-sm-3">
-			<h4 style="color:white">Something should go here, otherwise the displayed items feel to large</h4>
-		</div>
 
-		<div class ="col-sm-9">
+		<div class ="col-sm-9 col-sm-offset-2">
 			<div class ="list-group">
+
+				<!-- Schematic for preview/ download button. Note if user not logged in cannot download -->
+				{% for asset in assetList %}
 				<div style="background-color: transparent;" class="list-group-item">
 
-					<img src ="https://upload.wikimedia.org/wikipedia/en/6/60/Kratos_PS4.jpg" class="img-responsive" 
-					style="float:left; max-height: 150px; padding-right: 10px">
-					<h2 style="color: white" align="center">GOD OF WAR</h2>
-					<!-- <img src ="https://upload.wikimedia.org/wikipedia/en/6/60/Kratos_PS4.jpg" class="img-responsive" 
-					style="float:left; max-height: 150px; padding-right: 10px">
- -->
-					<p style= "color: white;"> All Spartans are great warriors. We train from birth. Our lives were discipline, duty, battle, and death. Life was grim, and we greeted it grimly.But Atreus of Sparta was unlike the rest of us. He wore a smile even in the worst of times. He was… happy. He inspired us to hope… that though we were machines of war, yet there was humanity in us. Goodness. When the day came for him to lay down his life in battle, his sacrifice saved countless others, and turned the tide in our favour. I carried him home on his shield, and buried him with all the honours of Spartan custom. His memory was a comfort in dark times.</p>
-				</div>
-
-
-				<br>
-				<br>
-
-				<div style="background-color: transparent;  " class="list-group-item">
-
-					<img src ="https://upload.wikimedia.org/wikipedia/en/6/60/Kratos_PS4.jpg" class="img-responsive" 
-					style="float:left; max-height: 150px; padding-right: 10px">
-
-
-					<h2 style="color: white" align="center">GOD OF WAR</h2>
+					<img src ="{{asset[4]}}" class="img-responsive" 
+					style="float:left; max-height: 175px; padding-right: 10px" alt="File Image">
+					<h2 style="color: white" align="center">{{asset[1]}}</h2>
 					
+					<p style= "color: white;">{{asset[3]}}</p>
 
-					<p style= "color: white;"> All Spartans are great warriors. We train from birth. Our lives were discipline, duty, battle, and death. Life was grim, and we greeted it grimly.But Atreus of Sparta was unlike the rest of us. He wore a smile even in the worst of times. He was… happy. He inspired us to hope… that though we were machines of war, yet there was humanity in us. Goodness. When the day came for him to lay down his life in battle, his sacrifice saved countless others, and turned the tide in our favour. I carried him home on his shield, and buried him with all the honours of Spartan custom. His memory was a comfort in dark times.</p>
+					<button type="submit" class="btn btn-default" style="float: right;" method="POST">Download</button>
+
+					<br>
+					<br>
+
+
 				</div>
 
-				<br>
-				<br>
-
-				<div style="background-color: transparent;" class="list-group-item">
-
-					<img src ="https://upload.wikimedia.org/wikipedia/en/6/60/Kratos_PS4.jpg" class="img-responsive" 
-					style="float:left; max-height: 150px; padding-right: 10px">
-
-
-					<h2 style="color: white" align="center">GOD OF WAR</h2>
-					
-
-					<p style= "color: white;"> All Spartans are great warriors. We train from birth. Our lives were discipline, duty, battle, and death. Life was grim, and we greeted it grimly.But Atreus of Sparta was unlike the rest of us. He wore a smile even in the worst of times. He was… happy. He inspired us to hope… that though we were machines of war, yet there was humanity in us. Goodness. When the day came for him to lay down his life in battle, his sacrifice saved countless others, and turned the tide in our favour. I carried him home on his shield, and buried him with all the honours of Spartan custom. His memory was a comfort in dark times.</p>
-				</div>
 
 				<br>
 				<br>
-
-				<div style="background-color: transparent;" class="list-group-item">
-
-					<img src ="https://upload.wikimedia.org/wikipedia/en/6/60/Kratos_PS4.jpg" class="img-responsive" 
-					style="float:left; max-height: 150px; padding-right: 10px">
-
-
-					<h2 style="color: white" align="center">GOD OF WAR</h2>
-					
-
-					<p style= "color: white;"> All Spartans are great warriors. We train from birth. Our lives were discipline, duty, battle, and death. Life was grim, and we greeted it grimly.But Atreus of Sparta was unlike the rest of us. He wore a smile even in the worst of times. He was… happy. He inspired us to hope… that though we were machines of war, yet there was humanity in us. Goodness. When the day came for him to lay down his life in battle, his sacrifice saved countless others, and turned the tide in our favour. I carried him home on his shield, and buried him with all the honours of Spartan custom. His memory was a comfort in dark times.</p>
-				</div>
-
+				{% endfor %}
+ 
 			</div>
 		</div>
 				
-
 	</div>
 {% endblock %}
