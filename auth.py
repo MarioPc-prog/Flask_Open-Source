@@ -1,6 +1,6 @@
 # Authorization for user signing up or logging in/out of our server
 from flask import Blueprint, request, redirect, url_for, render_template, flash, session
-from . import db
+#from . import db
 from backEnd import BackEndInterface
 
 # Define auth blueprint
@@ -56,9 +56,9 @@ def signup():
         else:
             # User already exists
             flash("Email already exists. Try logging in or make another account")
+            redirect(url_for('sign.html'))
 
-
-    except Error as e:
+    except Exception as e:
         print(e)
     return render_template("sign.html")
 

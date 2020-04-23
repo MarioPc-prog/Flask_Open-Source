@@ -206,6 +206,9 @@ class BackEndInterface:
             print(e)
 
     def signUser(self, userEmail, username, userPassword):
+        # Sanitize input here
+        s = html.escape("""& < " ' >""")  # s = '&amp; &lt; &quot; &#x27; &gt;'
+
         MySQL_Find_User = """SELECT username FROM USERS WHERE Email=%s"""
 
         try:
@@ -213,8 +216,6 @@ class BackEndInterface:
             if self.verifyUser(userEmail, userPassword):
                 return False
             else:
-                # TODO - Username and email sanitization
-                s = html.escape( """& < " ' >""" )   # s = '&amp; &lt; &quot; &#x27; &gt;'
                 self.createrowUser(userEmail, username, self.passwordSaltHash(userPassword))
 
         except Error as e:
