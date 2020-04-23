@@ -98,8 +98,6 @@ class BackEndInterface:
 
     def createFileTable(self):
 
-        try:
-
             MySQL_Create_File_Table = """CREATE TABLE ASSETS (
 
                                          FileID int NOT NULL AUTO_INCREMENT,
@@ -196,7 +194,8 @@ class BackEndInterface:
 
             print(assets)
 
-
-        except Error as e:
+         except Error as e:
 
             print(e)
+
+  
