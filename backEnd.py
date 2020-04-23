@@ -97,7 +97,8 @@ class BackEndInterface:
 
 
     def createFileTable(self):
-
+        
+        try:
             MySQL_Create_File_Table = """CREATE TABLE ASSETS (
 
                                          FileID int NOT NULL AUTO_INCREMENT,
@@ -198,7 +199,7 @@ class BackEndInterface:
 
             print(e)
 
-    
+
     def findUser(self, userEmail):
         # This function assumes that no two of the same email will be allowed
 
