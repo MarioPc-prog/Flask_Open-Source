@@ -108,8 +108,11 @@ class BackEndInterface:
 
             print(e)
 
-    def createRowAssetTable(self, FileName, FileLocation, FileDescription):
 
+
+    def createRowAssetTable(self, FileName, FileDescription):
+
+        FileLocation = "../Assets/" + FileName
         try:
 
             MySQL_Create_Row_Asset = """INSERT INTO ASSETS (FileName, FileLocation, FileDescription) VALUES (%s, %s, %s)"""
@@ -161,11 +164,27 @@ class BackEndInterface:
             print("updated the current terminal")
 
             assets = self.currentTerminal.execute(MySQL_Select_X_Assets, dataCommand)
-            return assets
+            return assets[:x]
 
         except Error as e:
 
             print(e)
+
+
+    def selectAssetToDownload(self, AssetName):
+
+        MySQL_Asset_Download = """SELECT FileLocation FROM ASSETS WHERE FileName=%s"""
+        dataCommand = (AssetName)
+
+        try:
+            self.currentTerminal = self.connections[0].cursor()
+            print("Updated the current terminal")
+            assetLocation = self.currentTerminal.execute(MySQL_Asset_Download, dataCommand)
+            return assetLocation
+        except Error as e:
+            print(e)
+
+
 
     def passwordSaltHash(self, password):
         salt = hashlib.sha256(os.urandom(60)).hexdigest().encode('ascii')
