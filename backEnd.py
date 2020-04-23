@@ -97,7 +97,7 @@ class BackEndInterface:
 
 
     def createFileTable(self):
-        
+
         try:
             MySQL_Create_File_Table = """CREATE TABLE ASSETS (
 
