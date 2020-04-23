@@ -74,6 +74,16 @@ def testDeleteUserRow():
     return "<h1>Check that the row has been created</h1>"
 
 
+@app.route('/SelectX')
+def testSelectX():
+
+    try:
+        serverInterface.selectXfromAssets(1)
+        print(serverInterface.currentTerminal)
+    except Error as e:
+        print(e)
+    return "<h1>Check the terminal for output</h1>"
+
 if __name__ == "__main__":
 
     app.run(host='0.0.0.0', port=80)
