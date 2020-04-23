@@ -52,6 +52,14 @@ class BackEndInterface:
 
         return ("You're connected to database", self.currentTerminal.fetchone())
 
+    def disconnectFromServer(self):
+        try:
+            self.connections[0].close()
+            print("The connection has closed")
+        except Error as e:
+            print(e)
+
+
 
     def createrowUser(self, username, password, email):
         try:
@@ -143,6 +151,51 @@ class BackEndInterface:
             self.currentTerminal.execute(MySQL_Create_Row_Asset, dataAsset)
 
             self.connections[0].commit()
+
+        except Error as e:
+
+            print(e)
+
+
+    def deleteRowAsset(self, filename):
+
+        MySQL_Delete_Asset = """DELETE FROM ASSETS WHERE FileName=%s"""
+
+        dataCommand = (filename)
+
+        try:
+
+            self.currentTerminal = self.connections[0].cursor()
+
+            print("updated the current terminal")
+
+            self.currentTerminal.execute(MySQL_Delete_Asset, dataCommand)
+
+            self.connections[0].commit()
+
+
+        except Error as e:
+
+            print(e)
+
+
+
+    def selectXfromAssets(self, x):
+
+        MySQL_Select_X_Assets = """SELECT * FROM ASSETS LIMIT %s OFFSET %s"""
+        dataCommand = (x, x+1)
+
+
+        try:
+
+            self.currentTerminal = self.connections[0].cursor()
+
+            print("updated the current terminal")
+
+            assets = self.currentTerminal.execute(MySQL_Select_X_Assets, dataCommand)
+
+            print(assets)
+
 
         except Error as e:
 
