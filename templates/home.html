@@ -55,7 +55,7 @@
                                     <label for="email">Email:</label><br>
                                 </p>
                                 <p align="center">
-                                    <input id="emial" name="email" type="text"><br>
+                                    <input id="email" name="email" type="text"><br>
                                 </p>
                                 <p align="center">
                                     <label for="password">Password:</label><br>
@@ -87,10 +87,12 @@
 				<br>
 				<hr>
 
+			</div>
+
 	<div class="row">
 
 		<div class ="col-sm-9 col-sm-offset-2">
-			<div class ="list-group">
+			<div class ="list-group" method ="POST">
 
 				<!-- Schematic for preview/ download button. Note if user not logged in cannot download -->
 				{% for asset in assetList %}
@@ -98,11 +100,11 @@
 
 					<img src ="{{asset[4]}}" class="img-responsive" 
 					style="float:left; max-height: 175px; padding-right: 10px" alt="File Image">
-					<h2 style="color: white" align="center">{{asset[1]}}</h2>
+					<h2 style="color: white" align="center" name = "fileName">{{asset[1]}}</h2>
 					
 					<p style= "color: white;">{{asset[3]}}</p>
 
-					<button type="submit" class="btn btn-default" style="float: right;" method="POST">Download</button>
+					<button id = "{{asset[0]}}" type="submit" class="btn btn-default" style="float: right;">Download</button>
 
 					<br>
 					<br>
