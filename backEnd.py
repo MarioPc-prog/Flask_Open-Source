@@ -236,6 +236,7 @@ class BackEndInterface:
                 return False
             else:
                 self.createrowUser(userEmail, username, self.passwordSaltHash(userPassword))
+                return True
 
         except Error as e:
             print(e)
