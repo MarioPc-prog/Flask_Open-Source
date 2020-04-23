@@ -198,4 +198,29 @@ class BackEndInterface:
 
             print(e)
 
+    
+    def findUser(self, userEmail):
+        # This function assumes that no two of the same email will be allowed
+
+        MySQL_Find_User = """SELECT username, password FROM USERS WHERE Email=%s"""
+
+        try:
+
+            self.currentTerminal = self.connections[0].cursor()
+
+            print("attempting to find user from terminal")
+
+            username, password = self.currentTerminal.execute(MySQL_Find_User, userEmail)
+
+            if password != "" and username != "":
+                # User exists
+                return username, password
+
+            else:
+                print("User not found")
+
+
+        except Error as e:
+            print(e)
+
   
