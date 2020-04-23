@@ -98,9 +98,7 @@ class BackEndInterface:
 
     def createFileTable(self):
 
-        try:
-
-            MySQL_Create_File_Table = """CREATE TABLE ASSETS (
+        MySQL_Create_File_Table = """CREATE TABLE ASSETS (
 
                                          FileID int NOT NULL AUTO_INCREMENT,
 
@@ -113,17 +111,10 @@ class BackEndInterface:
                                          PRIMARY KEY (FileID)
 
                                          );"""
-
+        try:
             self.currentTerminal = self.connections[0].cursor()
-
             print("updated the current terminal")
-
-    
-
             self.currentTerminal.execute(MySQL_Create_File_Table)
-
-    
-
             self.connections[0].commit()
 
 
@@ -193,14 +184,11 @@ class BackEndInterface:
             print("updated the current terminal")
 
             assets = self.currentTerminal.execute(MySQL_Select_X_Assets, dataCommand)
-
             return assets
-
 
         except Error as e:
 
             print(e)
-
 
 
     def passwordSaltHash(self, password):
@@ -221,6 +209,3 @@ class BackEndInterface:
         pwdhash = binascii.hexlify(pwdhash).decode('ascii')
 
         return pwdhash == stored_password
-
-
-
