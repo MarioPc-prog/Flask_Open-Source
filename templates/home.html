@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block title %}Open Software{% endblock %}
+{%block css%}
+<link , href="{{url_for('static', filename='css/home.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<div class="container-fluid theme-showcase" role="main">
+    <div class="jumbotron text-center" style="background-color: transparent;">
+        <h1>Page Title</h1>
+        <p>
+        <p>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div align="left" class="col-sm-3">
+            <div class="panel panel-default" style="background-blend-mode: overlay;">
+                <div class="panel-heading text-center"><h3>Team OpenSource Repo</h3></div>
+                <div class="panel-body">
+                    <p align="left">Matthew Piatt<span style="float:right"> Ben Caruso</span></p>
+                    <p align="left">Mario Vega<span style="float:right"> Matthew Halligan</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div align="center" class="col-sm-6">
+            <h3>Search bar/button will go here</h3>
+            <form class="form-inline">
+                <div class="form-group">
+                    <!-- Label for what the user wants to download. May need to change! -->
+                    <label for="query"></label>
+                    <!-- Need to know what to put for the id -->
+                    <input class="form-control" id="" placeholder="Search for..." type="text">
+                </div>
+
+                <button class="btn btn-primary" type="submit">
+                    <span class="glyphicon glyphicon-search"></span> Search
+                </button>
+            </form>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+
+                <form action="{{ url_for('home_login') }}" method="post">
+                    <div align="right" class="col-sm-3">
+                        <div class="panel panel-default" style="background-blend-mode: overlay;">
+                            <div class="panel-heading text-center"><h3>User Login</h3></div>
+                            <div class="panel-body">
+                                <p align="center">
+                                    <label for="email">Email:</label><br>
+                                </p>
+                                <p align="center">
+                                    <input id="emial" name="email" type="text"><br>
+                                </p>
+                                <p align="center">
+                                    <label for="password">Password:</label><br>
+                                </p>
+                                <p align="center">
+                                    <input id="psswrd" name="password" type="text"><br><br>
+                                </p>
+                                <input onclick="myFunction()" type="checkbox">Show Password
+                                <script>
+                                    /* Shows the password when user presses show password using java script  */
+                                    function myFunction() {
+                                        var x = document.getElementById("psswrd");
+                                        if (x.type === "password") {
+                                            x.type = "text";
+                                        } else {
+                                            x.type = "password";
+                                        }
+                                    }
+                                </script>
+                                <input type="submit" value="Login">
+                                <input type="submit" value="Forgot Account">
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <br>
+                <br>
+                <hr>
+                <div class="row">
+                    <p> Maybe a sample of data pertinet to what's in the database?</p>
+                    <!-- <img src = "https://i.imgur.com/8yCj0Ao.jpg" alt = "cool space photo"> -->
+                </div>
+
+            </div>
+
+            <h1>Filler text to test affixed nav bar</h1>
+            <h1>Filler text to test affixed nav bar</h1>
+            <h1>Filler text to test affixed nav bar</h1>
+            <h1>Filler text to test affixed nav bar</h1>
+            <h1>Filler text to test affixed nav bar</h1>
+            <h1>Filler text to test affixed nav bar</h1>
+            <h1>Filler text to test affixed nav bar</h1>
+            <h1>Filler text to test affixed nav bar</h1>
+            <h1>Filler text to test affixed nav bar</h1>
+            <h1>Filler text to test affixed nav bar</h1>
+            <h1>Filler text to test affixed nav bar</h1>
+            <h1>Filler text to test affixed nav bar</h1>
+            <h1>Filler text to test affixed nav bar</h1>
+            <h1>Filler text to test affixed nav bar</h1>
+            <h1>Filler text to test affixed nav bar</h1>
+            {% endblock %}
