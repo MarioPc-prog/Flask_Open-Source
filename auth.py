@@ -1,5 +1,5 @@
 # Authorization for user signing up or logging in/out of our server
-from flask import Blueprint, request, redirect, url_for, render_template, flash
+from flask import Blueprint, request, redirect, url_for, render_template, flash, session
 from . import db
 from backEnd import BackEndInterface
 
@@ -15,29 +15,31 @@ def login():
     error = ""
     try:
         if request.method == "POST":
-            # email is in  reference to value = "{{request.form.email}}"
-            # on login.html within the input html tag in the form
-            attempted_username = request.form['username']
-            attempted_email = request.form['email']
-            attempted_password = request.form['password']
 
-            # TODO - security on username/password
-            # TODO - perform password hashing to "unhash" the password from the
-            # TODO   database
-            # Find user from database
-            user, password = BackEndInterface.findUser()
+            # Get attempted email
+            attempted_email = request.form.get('Email')
+            # Attempt to find user with this email
+            # user, password will return if password hashes correctly
+            # and user is verified
+            user = serverInterface.findUser(attempted_email)
 
-            if attempted_email == "admin" and attempted_password == "password":
-                # homepage is just wherever you want logged in users to be redirected
-                return redirect(url_for('homepage'))
+            # If user exists
+            if user:
+                # Define a new session variable
+                session['logged_in'] = True
+                session['username'] = request.form.get('username')
+                flash("You are now logged in")
+                # Redirect user
+                redirect(url_for("home.html"))
+
             else:
-                error = "Invalid credentials"
+                error = "Invalid Credentials. Try Again"
 
-        return render_template("login.html", error=error)
+        return render_template("main_login.html", error=error)
 
     except Exception as e:
         flash(e)
-        return render_template("login.html", error=error)
+        return render_template("main_login.html", error=error)
 
 
 @auth.route('/signup')
