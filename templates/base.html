@@ -13,56 +13,62 @@
     <!-- Bootstrap theme -->
     <link , href="{{url_for('static', filename='css/bootstrap-theme.min.css') }}" rel="stylesheet">
     {% block css %}{% endblock %}
-    <nav class="navbar navbar-inverse">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">OpenSource Repo </a>
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-            <li class="home"><a href="{{url_for('home') }}" id="homeLink">Home</a></li>
-            # Redirect to the home page if the home button is pressed --javascript-
-            <!-- Pages to be linked later-->
-            <li><a class="blog" href="{{url_for('about') }}">about</a></li>
-            <li><a class='Contact' href="{{url_for('contact') }}">Contact us</a></li>
-            <li><a class="sign" href="{{url_for('sign') }}">Sign Up</a></li>
-        </ul>
+
+
+
+
+    <nav class ="navbar navbar-inverse navbar-fixed-top" data-spy="affix" data-offset-top="197">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">OpenSource Repo </a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right" >
+                <li class="active"><a id="homeLink" onclick="home_click" href="/">Home</a></li>
+                  <!-- Redirect to the home page if the home button is pressed --javascript- -->
+                    <!-- pages to be linked later -->
+                <li><a class="blog" onclick="blog_click" href="{{url_for('about') }}">About </a></li>
+                <li><a href="{{url_for('contact') }}">Contact Us </a></li>
+                <li><a href="{{url_for('sign') }}">Sign up </a></li>
+            </ul>
+
     </nav>
+
 </head>
+
+
 <style>
-    body {
-        background-image: url('https://i.pinimg.com/originals/bb/61/8d/bb618db7d825e2e03c8d86f781a65e06.jpg');
+    body{
+        background-image: linear-gradient(to right, red 0%, blue 50%), url('https://i.pinimg.com/originals/bb/61/8d/bb618db7d825e2e03c8d86f781a65e06.jpg');
         background-repeat: no-repeat;
         background-size: cover;
-        position: relative;
+        /*position: relative;*/
         background-color: transparent;
         background-position: center;
+        background-blend-mode: darken;
     }
+/*<!-- To be ported to css?  -->*/
+  }
+  .navbar {
+    margin-bottom: 0px;
+    
+  }
 
-    /*<!-- To be ported to css?  -->*/
-    .affix {
-        top: 0;
-        width: 100%;
-        z-index: 9999 !important;
-    }
+  .affix ~ .container-fluid {
+   position: relative;
+   top: 50px;
+  }
 
-    .navbar {
-        margin-bottom: 0px;
-
-    }
-
-    .affix ~ .container-fluid {
-        position: relative;
-        top: 50px;
-    }
-
-    .footer {
-        position: absolute;
-    }
+  .footer{
+    position: absolute;
+  }
 </style>
+
+
 <body>
 {% block body %}{% endblock %}
 </body>
 <!-- Footer -->
-<footer class="page-footer" style="font:small ">
+<footer class="page-footer-bottom" style="font:small" >
     <hr>
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© 2020 Copyright:
