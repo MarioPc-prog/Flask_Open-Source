@@ -20,23 +20,22 @@
 		<div class ="col-md-offset-2">
 			<div class ="panel panel-default" style ="width:75%">
 
-				<div class ="panel-body text-center" style="">
-						<form action= "/uploader" method = "POST" enctype = "multipart/form-data">
+				<form action= "/uploader" method = "POST" enctype = "multipart/form-data">
+					<div class ="panel-body text-center" style="">
 							<input type="file" id="myfile" name="filename">
-							<textarea type="text" id="description" name="fileDescription" rows = 2></textarea>
-							<input type="submit">
-						</form>
-				</div>
+							<br>
+							<textarea type="text" id="description" name="fileDescription" rows = 10 placeholder="fileDescription" style="float: left"></textarea>
 
-				</div>
+							<img src="http://icons.iconarchive.com/icons/icojam/blue-bits/256/document-arrow-up-icon.png" style ="height: 150px; width: 150px float: right" class ="img-rounded">
+							
+					</div>
 
 				<div class ="panel-footer">
-				<form action= "/uploader" method = "POST" enctype = "multipart/form-data">
-					<input type="file" id="myfile" name="filename">
-					<textarea type="text" id="description" name="fileDescription" rows = 2></textarea>
-					<input type="submit">
-				</form>
+					<input type="submit" style="float: right">
+					<br>
 				</div>
+
+				</form>
 
 			</div>
 		</div>
@@ -47,24 +46,38 @@
 		<hr>
 
 		<div class ="col-md-offset-2">
+
+			<form action= "file.doc" method = "get">
+
 			<div class ="panel panel-default" style ="width:75%">
 
 				<div class ="panel-body text-center" style="">
-						<img src="https://miro.medium.com/max/2738/1*PPud-Z83-82NSwvzV9dnlg.png" class ="img-thumbnail" alt="upload file image" style ="height:200px; width:200px; float: center">
+
+						<input type="file" id="myfile2" name="fileNameDownload" style="float: left">
+
+						<img src="http://icons.iconarchive.com/icons/double-j-design/origami-colored-pencil/256/green-document-download-icon.png" class ="img-rounded" alt="upload file image" style ="height:200px; width:200px; float: right">
 				</div>
 
 				<div class ="panel-footer">
 
-				<form action= "/uploader" method = "POST">
-					<button type="submit" class="btn btn-default">Download</button>
+					<button type="submit" class="btn btn-default" style =" float: right">Download</button>
+					<br>
+					<br>
 
-				</form>
 				</div>
 
 			</div>
+
+			</form>
+
 		</div>
 	</div>
 </div>
+
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
 
 <br><br><br><br>
 <br><br><br><br>

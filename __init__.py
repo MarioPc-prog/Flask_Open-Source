@@ -80,7 +80,7 @@ def contact_post():
 	messageContent = request.form.get('messageContent')
 
 	# function call - give that to backend
-	return redirect(url_for('main.home')) #Example redirect 
+	return redirect(url_for('home')) #Example redirect 
 
 
 
