@@ -1,4 +1,5 @@
 .idea
 .idea/workspace
 venv
+__pycache__
 

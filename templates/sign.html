@@ -14,6 +14,13 @@
             <div align="center" class="panel-body">
                 <form action="{{url_for('sign')}}" method="POST">
                     <div class="form-group row text-center" style="max-width: 75%;">
+                        <label class="col-sm-12 col-form-label" for="username">Username</label>
+                        <div class="form-group">
+                            <input class="form-control" id="username" name="username" placeholder="username"
+                                   required type="text">
+                        </div>
+                    </div>
+                    <div class="form-group row text-center" style="max-width: 75%;">
                         <label class="col-sm-12 col-form-label" for="Email">Email</label>
                         <div class="form-group">
                             <input class="form-control" id="Email" name="email" placeholder="you@example.com"
