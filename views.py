@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 
 
-# from backEnd import BackEndInterface
+from backEnd import BackEndInterface
 
-# import ServerInteraction
+import ServerInteraction
 
-# serverInterface = BackEndInterface("205final")
-# serverInterface.connectToServer()
+serverInterface = BackEndInterface("205final")
+serverInterface.connectToServer()
 
 # create the first grouping for the blueprint
 
@@ -72,7 +72,7 @@ def contact_post():
 	messageContent = request.form.get('messageContent')
 
 	# function call - give that to backend
-	return redirect(url_for('main.home')) #Example redirect
+	return redirect(url_for('main.home')) #Example redirect 
 
 
 

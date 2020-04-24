@@ -57,7 +57,7 @@ def home_download():
 def home_login():
 	email = request.form.get('email')
 	password = request.form.get('password')
-	return render_template('main_login.html')
+	return render_template('fileTransfer.html')
 
 
 @app.route('/about')
