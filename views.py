@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 
 
-from backEnd import BackEndInterface
+# from backEnd import BackEndInterface
 
-import ServerInteraction
+# import ServerInteraction
 
-serverInterface = BackEndInterface("205final")
-serverInterface.connectToServer()
+# serverInterface = BackEndInterface("205final")
+# serverInterface.connectToServer()
 
 # create the first grouping for the blueprint
 
@@ -21,21 +21,22 @@ main = Blueprint("main",
 @main.route('/')
 def home():
 
-	assetList = serverInterface.selectXfromAssets(5)
+	#assetList = serverInterface.selectXfromAssets(5)
+	assetList = [("id","fileName","fileLocation","fileDescription","fileImage")]
 	return render_template('home.html', assetList=assetList)
 
 @main.route('/download', methods=['POST'])
 def home_download():
 
-	assetList = serverInterface.selectXfromAssets(5)
+	# assetList = serverInterface.selectXfromAssets(5)
 
-	fileName = request.get(fileName)
-	print(fileName) #For testing, delete after testing
+	# fileName = request.get(fileName)
+	# print(fileName) #For testing, delete after testing
 
-	assetLocation = serverInterface.selectAssetToDownload(fileName)
+	# assetLocation = serverInterface.selectAssetToDownload(fileName)
 
-	#TODO: talk to Ben about getting the download to run. 
-	ServerInteraction.download_file(assetLocation)
+	# #TODO: talk to Ben about getting the download to run. 
+	# ServerInteraction.download_file(assetLocation)
 
 	return "<h1>File Downloaded </h1>" #Change this to redirect if time allows
 
@@ -71,7 +72,7 @@ def contact_post():
 	messageContent = request.form.get('messageContent')
 
 	# function call - give that to backend
-	return f"Email: {email} Subject: {subject} messageContent: {messageContent}" 
+	return redirect(url_for('main.home')) #Example redirect
 
 
 
