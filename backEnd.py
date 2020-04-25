@@ -209,7 +209,7 @@ class BackEndInterface:
     def verifyUser(self, userEmail, userPassword):
         # This function assumes that no two of the same email will be allowed
 
-        MySQL_Verify_User = """SELECT password FROM USERS WHERE Email=%s"""
+        MySQL_Verify_User = """SELECT Password FROM USERS WHERE Email=%s"""
 
         try:
 
@@ -228,13 +228,14 @@ class BackEndInterface:
         # Sanitize input here
         s = html.escape("""& < " ' >""")  # s = '&amp; &lt; &quot; &#x27; &gt;'
 
-        MySQL_Find_User = """SELECT username FROM USERS WHERE Email=%s"""
+        MySQL_Find_User = """SELECT UserName FROM USERS WHERE Email=%s"""
 
         try:
-
+            # Verify user doesn't already exist
             if self.verifyUser(userEmail, userPassword):
                 return False
             else:
+                # Create user
                 self.createrowUser(userEmail, username, self.passwordSaltHash(userPassword))
                 return True
 

@@ -7,6 +7,7 @@ app = Flask(__name__)
 # app.register_blueprint(main)
 
 from flask import Blueprint, render_template, request, redirect, url_for
+from flask_login import LoginManager
 
 
 # from backEnd import BackEndInterface
@@ -15,6 +16,8 @@ from flask import Blueprint, render_template, request, redirect, url_for
 
 # serverInterface = BackEndInterface("205final")
 # serverInterface.connectToServer()
+
+login_manager = LoginManager()
 
 # create the first grouping for the blueprint
 
@@ -97,9 +100,21 @@ def fileTransfer():
 #    return f"Email: {email} Password: {password}"
 
 
-# def create_app():
+def create_app():
 
-# 	app.run(debug=debug, host='0.0.0.0:80')
+	app.run(debug=debug, host='0.0.0.0:80')
+
+	app.config.from_object('config.Config')
+	login_manager.init_app(app)
+
+	with app.app_context():
+		from . import routes
+		from . import auth
+
+		app.register_blueprint(routes.main_bp)
+		app.register_blueprint(auth.auth_bp)
+
+		return app
 
 # create_app()
 
