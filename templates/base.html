@@ -23,12 +23,12 @@
             </div>
 
             <ul class="nav navbar-nav navbar-right" >
-                <li class="active"><a id="homeLink" onclick="home_click" href="/">Home</a></li>
+                <li class=""><a id="homeLink" onclick="home_click" href="/">Home</a></li>
                   <!-- Redirect to the home page if the home button is pressed --javascript- -->
                     <!-- pages to be linked later -->
-                <li><a class="blog" onclick="blog_click" href="{{url_for('about') }}">About </a></li>
-                <li><a href="{{url_for('contact') }}">Contact Us </a></li>
-                <li><a href="{{url_for('sign') }}">Sign up </a></li>
+                <li><a class="blog" onclick="blog_click" href="{{url_for('main.about') }}">About </a></li>
+                <li><a href="{{url_for('main.contact') }}">Contact Us </a></li>
+                <li><a href="{{url_for('main.sign') }}">Sign up </a></li>
             </ul>
 
     </nav>

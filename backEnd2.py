@@ -6,6 +6,9 @@ from mysql.connector import Error
 
 import html
 
+import pandas as pd 
+import pymysql
+
 
 class BackEndInterface:
 
