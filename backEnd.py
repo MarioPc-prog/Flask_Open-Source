@@ -247,3 +247,21 @@ class BackEndInterface:
         input = input.lower()
 
         DANGER_STRINGS = ["delete", "insert", "update", "select"]
+
+        # TODO - Sanitize input
+
+    def getUserID(self, email):
+
+        MySQL_Return_UserID = """SELECT PersonID FROM USERS WHERE Email=%s"""
+
+        try:
+            self.currentTerminal = self.connections[0].cursor()
+
+            print("updated the current terminal")
+
+            id = self.currentTerminal.execute(MySQL_Return_UserID, email)
+
+            return id
+
+        except Exception as e:
+            print(e)

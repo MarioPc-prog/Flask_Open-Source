@@ -8,17 +8,11 @@ from backEnd import BackEndInterface
 from flask_login import LoginManager, login_user, logout_user, current_user
 from flask import current_app as app
 
-# Define auth blueprint
-auth = Blueprint('auth_bp', __name__,
-                 template_folder='templates',
-                 static_folder='static')
-compile_auth_assets(app)
-
 # Connect to server
 serverInterface = BackEndInterface("205final")
 serverInterface.connectToServer()
 
-@auth.route("/main_login/", methods = ["GET", "POST"])
+@app.route("/main_login/", methods = ["GET", "POST"])
 def login():
     error = ""
     # Bypass if user is already logged in
@@ -40,20 +34,20 @@ def login():
                 next_page = request.args.get('next')
                 # Redirect user
                 # user has correct credentials
-                return redirect(url_for("home.html"))
+                return redirect(url_for("main.home"))
 
             else:
                 error = "Invalid Credentials. Try Again"
-                return redirect(url_for("main_login.html", error=error))
+                return redirect(url_for("main.home_login", error=error))
 
-        return redirect(url_for("main_login.html", error = error))
+        return redirect(url_for("main.home_login", error = error))
 
     except Exception as e:
         flash(e)
-        return redirect(url_for("main_login.html", error=error))
+        return redirect(url_for("main.home_login.html", error=error))
 
 
-@auth.route('/sign', methods = ["GET", "POST"])
+@app.route('/sign', methods = ["GET", "POST"])
 def signup():
     error = ""
     try:
@@ -70,9 +64,9 @@ def signup():
             else:
                 # User already exists
                 flash("Email already exists. Try logging in or make another account")
-                redirect(url_for('sign.html'))
+                redirect(url_for('main.sign'))
 
-        redirect(url_for("sign.html"))
+        redirect(url_for("main.sign"))
 
     except Exception as e:
         print(e)
@@ -85,23 +79,15 @@ def login_required(f):
             return f(*args, **kwargs)
         else:
             flash("You must log in first")
-            return redirect(url_for("main_login"))
+            return redirect(url_for("main.home_login"))
 
-@auth.route('/logout')
+@app.route('/logout')
 @login_required
 def logout():
     session.clear()
     flash("You have been logged out")
     gc.collect()
-    return redirect(url_for("home"))
-
-def create_app():
-
-    db.init_app(app)
-
-    login_manager = LoginManager()
-    login_manager.login_view = 'auth.login'
-    login_manager.init_app(app)
+    return redirect(url_for("main.home"))
 
 
 @login_manager.user_loader
@@ -116,4 +102,4 @@ def load_user(user_id):
 def unauthorized():
     """Redirect unauthorized users to Login page."""
     flash('You must be logged in to view that page.')
-    return redirect(url_for('main_login.html'))
+    return redirect(url_for('main.home_login'))
