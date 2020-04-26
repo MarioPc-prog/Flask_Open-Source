@@ -6,53 +6,22 @@ from mysql.connector import Error
 
 import html
 
-import pandas as pd 
+import pandas as pd
 import pymysql
+
+
 
 
 class BackEndInterface:
 
     def __init__(self, filename, debug=False):
-
-        self.degub = debug
-
+        mysql_connection = pymysql.connect(host='localhost', user='root',password='cs205',db='205final',charset='utf8',cursorclass= pymysql.cursors.DictCursor)
+        self.connection = mysql_connection
         self.connections = []
+        self.connections.append(mysql_connection)
 
-        self.databaseName = filename
-
-        self.currentTerminal = 0
-
-    def connectToServer(self):
-
-        username = "root"
-
-        password = "cs205"
-
-        try:
-
-            newconnection = mysql.connector.connect(host='localhost',
-
-                                                    database='205final',
-
-                                                    user=username,
-
-                                                    password=password)
-
-            self.connections.append(newconnection)
-            print("made the connection")
-
-            self.currentConnection = newconnection
-
-            self.currentTerminal = newconnection.cursor()
-            print("updated current terminal")
-            print(self.currentTerminal)
-
-        except Exception as e:
-
-            print("Error while connecting to MySQL", str(e))
-
-        #return ("You're connected to database", self.currentTerminal.fetchone())
-        return newconnection
+        self.currentTerminal = mysql_connection.cursor()
+ 
 
     def disconnectFromServer(self):
         try:
@@ -100,6 +69,7 @@ class BackEndInterface:
                                          FileName varchar(255) NOT NULL,
                                          FileLocation varchar(255) NOT NULL,
                                          FileDescription varchar(255) NOT NULL,
+                                         ImageLocation varchar(255),
                                          PRIMARY KEY (FileID)
                                          );"""
         try:
@@ -117,12 +87,15 @@ class BackEndInterface:
 
     def createRowAssetTable(self, FileName, FileDescription):
 
-        FileLocation = "../Assets/" + FileName
+        FileLocation = "static/" + FileName
+        FileImageLocation = "static/Images/"+ FileName #support for images not available currently
+
+
         try:
 
-            MySQL_Create_Row_Asset = """INSERT INTO ASSETS (FileName, FileLocation, FileDescription) VALUES (%s, %s, %s)"""
+            MySQL_Create_Row_Asset = """INSERT INTO ASSETS (FileName, FileLocation, FileDescription, ImageLocation) VALUES (%s, %s, %s, %s)"""
 
-            dataAsset = (FileName, FileLocation, FileDescription)
+            dataAsset = (FileName, FileLocation, FileDescription, FileImageLocation)
 
             self.currentTerminal = self.connections[0].cursor()
 
@@ -159,8 +132,7 @@ class BackEndInterface:
 
     def selectXfromAssets(self, x):
 
-        MySQL_Select_X_Assets = """SELECT * FROM ASSETS"""
-        dataCommand = (x, x + 1)
+        query = """SELECT * FROM ASSETS LIMIT """ + str(x)
 
         try:
 
@@ -168,8 +140,18 @@ class BackEndInterface:
 
             print("updated the current terminal")
 
-            assets = self.currentTerminal.execute(MySQL_Select_X_Assets, dataCommand)
-            return assets[:x]
+            assets = pd.read_sql(query, self.connection)
+
+            print(assets)
+            print()
+
+            fileInfo = assets.values.tolist()
+            print(fileInfo)
+
+
+            
+            
+            return fileInfo
 
         except Error as e:
 
@@ -251,3 +233,4 @@ class BackEndInterface:
         input = input.lower()
 
         DANGER_STRINGS = ["delete", "insert", "update", "select"]
+

@@ -5,12 +5,11 @@ from flask import Blueprint, render_template, request, redirect, url_for, send_f
 from werkzeug.utils import secure_filename
 
 
+from backEnd2 import BackEndInterface
 
-#from backEnd import BackEndInterface
+import ServerInteraction
 
-#import ServerInteraction
-
-# serverInterface = BackEndInterface("205final")
+serverInterface = BackEndInterface("205final")
 # serverInterface.connectToServer()
 
 # create the first grouping for the blueprint
@@ -27,19 +26,22 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 @main.route('/')
 def home():
 
-	#assetList = serverInterface.selectXfromAssets(5)
-	assetList = [("id","fileName","fileLocation","fileDescription","fileImage")]
+	assetList = serverInterface.selectXfromAssets(5)
+	#assetList = [("id","fileName","fileLocation","fileDescription","fileImage")]
 	return render_template('home.html', assetList=assetList)
 
-@main.route('/download', methods=['GET'])
-def home_download():
+@main.route('/download-file2/<folder>/<name>', methods=['GET'])
+def home_download(folder,name):
 
 	path = os.getcwd()
-
-	print(str(path))
-	fileName = "Ben.jpg"
-	return send_file("static/" + fileName,
-					attachment_filename=fileName,
+	
+	
+	
+	print("\n\n" + str(name)+"\n\n")
+	
+	
+	return send_file(str(folder)  + "/" + str(name),
+					attachment_filename=str(name),
 					as_attachment=True)
 
 
@@ -79,7 +81,7 @@ def sign_post():
 	email = request.form.get('email')
 	password = request.form.get('password')
 
-	return f'Email: {email} Password: {password}'
+	return '<h1>Email has been sent</h1>'
 
 @main.route('/fileTransfer')
 def fileTransfer():
@@ -95,18 +97,20 @@ def allowed_file(filename):
 
 
 
-# Function that returns the given file back to the user by accessing its location
+
 @main.route('/upload-file', methods =['POST'])
 def upload_file():
 	print('\n\nROUTE HIT \n\n')
-
-
-	f = request.files['filename']
-	path = os.path.join(current_app.root_path, 'static/')
 	
+	f = request.files['filename']
+	fileDescr = request.form.get('fileDescription')
+
+	print('\n\n' + str(f.filename) + '\n\n' + str(fileDescr) + '\n\n')
+
+	path = os.path.join(current_app.root_path,'static/')
+
 	f.save(os.path.join(path,secure_filename(f.filename)))
 
+	serverInterface.createRowAssetTable(f.filename,fileDescr)
 
 	return 'file uploaded succesfully'
-
-	

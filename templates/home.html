@@ -92,21 +92,22 @@
 	<div class="row">
 
 		<div class ="col-sm-9 col-sm-offset-2">
-			<div class ="list-group" method ="GET">
+			<div class ="list-group">
 
 				<!-- Schematic for preview/ download button. Note if user not logged in cannot download -->
 				{% for asset in assetList %}
 				<div style="background-color: transparent;" class="list-group-item">
-					<form action="/download">
+					<form action="/download-file2/{{asset[2]}}" method="GET">
 						<img src ="{{asset[4]}}" class="img-responsive" 
 						style="float:left; max-height: 175px; padding-right: 10px" alt="File Image">
 						<h2 style="color: white" align="center" name = "fileName">{{asset[1]}}</h2>
 					
 						<p style= "color: white;">{{asset[3]}}</p>
 
-					
-						<button id = "{{asset[0]}}" type="submit" class="btn btn-default" style="float: right;" 
-						method ="GET" name="{{asset[1]}}">Download</button>
+						
+							<button id = "{{asset[0]}}" type="submit" class="btn btn-default" style="float: right;"  name="{{asset[1]}}" >Download</button>
+
+						
 					</form>
 
 					<br>
