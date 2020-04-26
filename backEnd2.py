@@ -243,6 +243,9 @@ class BackEndInterface:
             else:
                 self.createrowUser(userEmail, username, self.passwordSaltHash(userPassword))
 
+        except Exception as e:
+            print(e)
+
     def isUser(self, userEmail):
          MySQL_Check_User = """SELECT Password FROM USERS WHERE Email='""" + str(userEmail) + """'"""
          print(MySQL_Check_User)
