@@ -12,7 +12,7 @@ DOWNLOAD_FOLDER = '/var/www/files/downloads'
 # Will allow more extensions going forward - this is for testing
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
-app = Flask(__name__)
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
 

@@ -1,17 +1,15 @@
 from flask import Flask
 from views import main
+import os
 
 global app
-
 debug = True
+
+
 app = Flask(__name__)
+
 app.register_blueprint(main)
 
-
-
-
-
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
 
 # def create_app():
