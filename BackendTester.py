@@ -21,16 +21,17 @@ from flask import Blueprint, render_template, request
 # create the first grouping for the blueprint
 
 
-
 @app.route('/')
 
 def home():
+
 #    try:
 #        serverInterface.connectToServer()
 #        print("No error while connecting")
 #    except:
 #        print("there was an error connecting")
-    return "<h1>This is Backend Tester Code</h1>"
+    #return "<h1>This is Backend Tester Code</h1>"
+    return testSelectID()
 
 
 
@@ -79,6 +80,16 @@ def testSelectX():
 
     try:
         serverInterface.selectXfromAssets(1)
+        print(serverInterface.currentTerminal)
+    except Error as e:
+        print(e)
+    return "<h1>Check the terminal for output</h1>"
+
+@app.route('/SelectID')
+def testSelectID():
+
+    try:
+        serverInterface.getUserID('bcaruso@uvm.edu')
         print(serverInterface.currentTerminal)
     except Error as e:
         print(e)

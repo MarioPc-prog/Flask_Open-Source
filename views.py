@@ -78,10 +78,38 @@ def contact_post():
 
 @main.route('/sign', methods=['POST'])
 def sign_post():
-	email = request.form.get('email')
-	password = request.form.get('password')
+	error = ""
+	print("SIGNUP FUNCTION EXECUTED\n")
 
-	return '<h1>Email has been sent</h1>'
+	try:
+		if request.method == 'POST':
+			email = request.form.get('email')
+			username = request.form.get('username')
+			password = request.form.get('psswrd')
+			rpassword = request.form.get('repeatpsswrd')
+
+			if rpassword != password:
+				flash("Passwords don't match")
+				return redirect(url_for('main.sign'))
+
+			# DEBUGGING
+			print(str(email) + '\n' + str(username) + '\n' + str(password) + '\n')
+           		 # Check if user already exists in database
+			if serverInterface.signUser(str(username), str(password), str(email)):
+                       # User has been created, now we want to redirect to login page
+				return redirect(url_for('main.home_login'))
+
+			else:
+                # User already exists
+				print("Views.py: User exists, redirecting to main.sign")
+				redirect(url_for('main.sign'))
+
+		redirect(url_for("main.sign"))
+
+	except Exception as e:
+		print(e)
+
+	return render_template("sign.html")
 
 @main.route('/fileTransfer')
 def fileTransfer():
@@ -93,7 +121,6 @@ def fileTransfer():
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
 
 
 
@@ -114,3 +141,5 @@ def upload_file():
 	serverInterface.createRowAssetTable(f.filename,fileDescr)
 
 	return 'file uploaded succesfully'
+
+

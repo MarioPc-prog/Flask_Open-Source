@@ -87,7 +87,7 @@ class BackEndInterface:
 
     def createRowAssetTable(self, FileName, FileDescription):
 
-        FileLocation = "static/" + FileName
+       FileLocation = "static/" + FileName
         FileImageLocation = "static/Images/"+ FileName #support for images not available currently
 
 
@@ -96,6 +96,8 @@ class BackEndInterface:
             MySQL_Create_Row_Asset = """INSERT INTO ASSETS (FileName, FileLocation, FileDescription, ImageLocation) VALUES (%s, %s, %s, %s)"""
 
             dataAsset = (FileName, FileLocation, FileDescription, FileImageLocation)
+
+    
 
             self.currentTerminal = self.connections[0].cursor()
 
@@ -196,7 +198,9 @@ class BackEndInterface:
     def verifyUser(self, userEmail, userPassword):
         # This function assumes that no two of the same email will be allowed
 
-        MySQL_Verify_User = """SELECT password FROM USERS WHERE Email=%s"""
+        MySQL_Verify_User = """SELECT Password FROM USERS WHERE Email='""" + str(userEmail) + """'"""
+        print(MySQL_Verify_User)
+
 
         try:
 
@@ -204,12 +208,27 @@ class BackEndInterface:
 
             print("attempting to find user from terminal")
 
+
             password = self.currentTerminal.execute(MySQL_Verify_User, userEmail)
 
             return self.passwordVerify(password, userPassword)
 
+            password = pd.read_sql(MySQL_Verify_User, self.connection)
+            print(password)
+            passwordFinal = password.values.to_list()
+            print(passwordFinal)
+
+            if isUser(userEmail):
+
+                return passwordVerify(str(passwordFinal[0]), userPassword)
+
+            else:
+                return False
+
+
         except Error as e:
             print(e)
+
 
     def signUser(self, userEmail, username, userPassword):
         # Sanitize input here
@@ -223,6 +242,38 @@ class BackEndInterface:
                 return False
             else:
                 self.createrowUser(userEmail, username, self.passwordSaltHash(userPassword))
+
+    def isUser(self, userEmail):
+         MySQL_Check_User = """SELECT Password FROM USERS WHERE Email='""" + str(userEmail) + """'"""
+         print(MySQL_Check_User)
+
+         try:
+             self.currentTerminal = self.connections[0].cursor()
+
+             print("Searching for user")
+
+             result = self.currentTerminal.execute(MySQL_Check_User)
+
+             if result == 0:
+                 print("User desn't exist. isUser returns False")
+                 return False
+             else:
+                 print("User exists. isUser returns True")
+                 return True
+         except Exception as e:
+             print(e)
+
+    def signUser(self, username, userPassword, userEmail):
+
+        try:
+
+            if self.isUser(userEmail):
+                print("USER ALREADY EXISTS")
+                return False
+            else:
+                print("CREATING USER")
+                self.createrowUser(username, self.passwordSaltHash(userPassword), userEmail)
+
                 return True
 
         except Error as e:

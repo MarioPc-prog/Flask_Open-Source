@@ -1,19 +1,23 @@
 # Authorization for user signing up or logging in/out of our server
+import gc
+import wrap
+
 from flask import Blueprint, request, redirect, url_for, render_template, flash, session
 from . import db
 from backEnd import BackEndInterface
-from flask_login import LoginManager, login_user, logout_user, login_required
-
-# Define auth blueprint
-auth = Blueprint('auth', __name__)
+from flask_login import LoginManager, login_user, logout_user, current_user
+from flask import current_app as app
 
 # Connect to server
-serverInterface = BackEndInterface("cs205")
+serverInterface = BackEndInterface("205final")
 serverInterface.connectToServer()
 
-@auth.route("/main_login/", methods = ["GET", "POST"])
+@app.route("/main_login/", methods = ["GET", "POST"])
 def login():
     error = ""
+    # Bypass if user is already logged in
+    if current_user.is_authenticated:
+        return redirect(url_for('home.html'))
     try:
         if request.method == "POST":
             # Get attempted email and password
@@ -27,59 +31,75 @@ def login():
                 session['logged_in'] = True
                 session['username'] = request.form.get('username')
                 flash("You are now logged in")
+                next_page = request.args.get('next')
                 # Redirect user
                 # user has correct credentials
-                login_user(user, remember = remember)
-                redirect(url_for("home.html"))
+                return redirect(url_for("main.home"))
 
             else:
                 error = "Invalid Credentials. Try Again"
-                return render_template("main_login.html", error=error)
+                return redirect(url_for("main.home_login", error=error))
 
-        return render_template("main_login.html", error = error)
+        return redirect(url_for("main.home_login", error = error))
 
     except Exception as e:
         flash(e)
-        return render_template("main_login.html", error=error)
+        return redirect(url_for("main.home_login.html", error=error))
 
 
-@auth.route('/sign', methods = ["GET", "POST"])
+@app.route('/sign', methods = ["GET", "POST"])
 def signup():
     error = ""
     try:
-        email = request.form.get('email')
-        username = request.form.get('username')
-        password = request.form.get('password')
+        if request.method == 'POST':
+            email = request.form.get('email')
+            username = request.form.get('username')
+            password = request.form.get('password')
 
-        # Check if user already exists in database
-        if serverInterface.signUser(email, username, password):
-            # User has been created, now we want to redirect to login page
-            return redirect(url_for('main_login.html'))
+            # Check if user already exists in database
+            if serverInterface.signUser(email, username, password):
+                # User has been created, now we want to redirect to login page
+                return redirect(url_for('main_login.html'))
 
-        else:
-            # User already exists
-            flash("Email already exists. Try logging in or make another account")
-            redirect(url_for('sign.html'))
+            else:
+                # User already exists
+                flash("Email already exists. Try logging in or make another account")
+                redirect(url_for('main.sign'))
+
+        redirect(url_for("main.sign"))
 
     except Exception as e:
         print(e)
     return render_template("sign.html")
 
-@auth.route('/logout')
+def login_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash("You must log in first")
+            return redirect(url_for("main.home_login"))
+
+@app.route('/logout')
 @login_required
 def logout():
-    logout_user()
-    return render_template("logout.html")
+    session.clear()
+    flash("You have been logged out")
+    gc.collect()
+    return redirect(url_for("main.home"))
 
-def create_app():
 
-    db.init_app(app)
+@login_manager.user_loader
+def load_user(user_id):
+    """Checks if user is logged-in on every page load."""
+    if user_id is not None:
+        return getUsername(email)
+    return None
 
-    login_manager = LoginManager()
-    login_manager.login_view = 'auth.login'
-    login_manager.init_app(app)
 
-    @login_manager.user_loader
-    def load_user(user_id):
-        # Query to get user's id
-        return User.query.get(int(user_id))
+@login_manager.unauthorized_handler
+def unauthorized():
+    """Redirect unauthorized users to Login page."""
+    flash('You must be logged in to view that page.')
+    return redirect(url_for('main.home_login'))

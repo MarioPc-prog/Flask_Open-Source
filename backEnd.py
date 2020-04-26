@@ -211,7 +211,7 @@ class BackEndInterface:
     def verifyUser(self, userEmail, userPassword):
         # This function assumes that no two of the same email will be allowed
 
-        MySQL_Verify_User = """SELECT password FROM USERS WHERE Email=%s"""
+        MySQL_Verify_User = """SELECT Password FROM USERS WHERE Email=%s"""
 
         try:
 
@@ -230,13 +230,14 @@ class BackEndInterface:
         # Sanitize input here
         s = html.escape("""& < " ' >""")  # s = '&amp; &lt; &quot; &#x27; &gt;'
 
-        MySQL_Find_User = """SELECT username FROM USERS WHERE Email=%s"""
+        MySQL_Find_User = """SELECT UserName FROM USERS WHERE Email=%s"""
 
         try:
-
+            # Verify user doesn't already exist
             if self.verifyUser(userEmail, userPassword):
                 return False
             else:
+                # Create user
                 self.createrowUser(userEmail, username, self.passwordSaltHash(userPassword))
                 return True
 
@@ -248,3 +249,21 @@ class BackEndInterface:
         input = input.lower()
 
         DANGER_STRINGS = ["delete", "insert", "update", "select"]
+
+        # TODO - Sanitize input
+
+    def getUserID(self, email):
+
+        MySQL_Return_UserID = """SELECT PersonID FROM USERS WHERE Email=%s"""
+
+        try:
+            self.currentTerminal = self.connections[0].cursor()
+
+            print("updated the current terminal")
+
+            id = self.currentTerminal.execute(MySQL_Return_UserID, email)
+
+            return id
+
+        except Exception as e:
+            print(e)
