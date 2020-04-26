@@ -2,111 +2,55 @@
 {% extends 'base.html' %}
 {% block title %}Open Software{% endblock %}
 {% block css %}
-<link , href="{{url_for('static', filename='css/blog.css') }}" rel="stylesheet">
-<html lang="en">
+<link  href="{{url_for('static', filename='css/blog.css') }}", rel="stylesheet"><html lang="en">
 {% endblock %}
 
 
 {% block body %}
-<div class="container-fluid theme-showcase" role="main" style="max-width: 75%">
-    <div class="jumbotron text-center" style="background-color: transparent; color: white">
-        <h1>About Us</h1>
+<div class ="container-fluid theme-showcase" role="main" style="max-width: 75%">
+    <div class ="jumbotron text-center" style="background-color: gray; color: white">
+        <h1 >About Us</h1>
         <!-- May move this description elsewhere -->
-        <p style="color: white"> Meet the team
-        <p>
+        <p style="color: white"> Meet the team <p>
     </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <h2 style="color: white">Matthew Piatt</h2>
-                <h5 style="color: white"> ENTRY DESCRIPTION</h5>
-                <!-- Add image here -->
-                <img class="img-responsive" style="height: 250px; margin-right: 20px"
-
-                src="{{url_for('static', filename='MattP.jpg') }}"
-
-                align="left">
-
-                <p style="color: white"> Did you ever hear the tragedy of Darth Plagueis The Wise? I thought not. It’s
-                    not a story the Jedi would tell you. It’s a Sith legend. Darth Plagueis was a Dark Lord of the Sith,
-                    so powerful and so wise he could use the Force to influence the midichlorians to create life… He had
-                    such a knowledge of the dark side that he could even keep the ones he cared about from dying. The
-                    dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so
-                    powerful… the only thing he was afraid of was losing his power, which eventually, of course, he did.
-                    Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his
-                    sleep. Ironic. He could save others from death, but not himself. </p>
-
-            </div>
-
-
-
-
-            <div class="card">
-                <h2 style="color: white">Mario Vega</h2>
-                <h5 style="color: white"> ENTRY DESCRIPTION</h5>
-                <!-- Add image here -->
-                
-                <img class="img-responsive" style =" height: 250px; margin-right: 20px;"
-
-                src="{{url_for('static', filename='MarioV.jpeg') }}"
-
-                align="left" alt="Picture of Mario Vega">
-
-                <p style="color: white"> Did you ever hear the tragedy of Darth Plagueis The Wise? I thought not. It’s
-                    not a story the Jedi would tell you. It’s a Sith legend. Darth Plagueis was a Dark Lord of the Sith,
-                    so powerful and so wise he could use the Force to influence the midichlorians to create life… He had
-                    such a knowledge of the dark side that he could even keep the ones he cared about from dying. The
-                    dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so
-                    powerful… the only thing he was afraid of was losing his power, which eventually, of course, he did.
-                    Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his
-                    sleep. Ironic. He could save others from death, but not himself. </p>
-            </div>
-
+<div class ="row">
+    <div class ="col-md-6">
+        <div class = "card">
+            <h2 style="color: white">Matthew Piatt</h2>
+            <h5 style="color: white"> ENTRY DESCRIPTION</h5>
+            <!-- Add image here -->
+            <div class ="fakeimg" style ="height: 200px; background-color: dimgray">Image</div>
+            <p style="color: white"> ENTRY TEXT ENTRY TEXT ENTRY TEXT... </p>
         </div>
 
-        <div class="col-md-6">
-            <div class="card">
-                <h2 style="color: white">Matthew Halligan</h2>
-                <h5 style="color: white"> ENTRY DESCRIPTION</h5>
-                <!-- Add image here -->
-                <img class="img-responsive" style="height: 250px; max-width: 250px; margin-right: 20px;" 
-
-                src="{{url_for('static', filename='MattH.jpeg') }}"
-
-                align="left" alt="Picture of Matt H">
-
-                <p style="color: white"> Did you ever hear the tragedy of Darth Plagueis The Wise? I thought not. It’s
-                    not a story the Jedi would tell you. It’s a Sith legend. Darth Plagueis was a Dark Lord of the Sith,
-                    so powerful and so wise he could use the Force to influence the midichlorians to create life… He had
-                    such a knowledge of the dark side that he could even keep the ones he cared about from dying. The
-                    dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so
-                    powerful… the only thing he was afraid of was losing his power, which eventually, of course, he did.
-                    Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his
-                    sleep. Ironic. He could save others from death, but not himself. </p>
-            </div>
-
-            <br>
-
-            <div class="card">
-                <h2 style="color: white">Ben Caruso</h2>
-                <h5 style="color: white"> ENTRY DESCRIPTION</h5>
-                <!-- Add image here -->
-                <img class="img-responsive" style="height: 250px; margin-right: 20px" 
-
-                src="{{url_for('static', filename='Ben.jpg') }}" 
-
-                alt="Picture of Ben" align= "left">
-                <p style="color: white"> Did you ever hear the tragedy of Darth Plagueis The Wise? I thought not. It’s
-                    not a story the Jedi would tell you. It’s a Sith legend. Darth Plagueis was a Dark Lord of the Sith,
-                    so powerful and so wise he could use the Force to influence the midichlorians to create life… He had
-                    such a knowledge of the dark side that he could even keep the ones he cared about from dying. The
-                    dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so
-                    powerful… the only thing he was afraid of was losing his power, which eventually, of course, he did.
-                    Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his
-                    sleep. Ironic. He could save others from death, but not himself. </p>
-            </div>
-
+        <div class ="card">
+            <h2 style="color: white">Mario Vega</h2>
+            <h5 style="color: white"> ENTRY DESCRIPTION</h5>
+           <!-- Add image here -->
+            <div class ="fakeimg" style ="height: 200px; background-color: dimgray">Image</div>
+            <p style="color: white"> Did you ever hear the tragedy of Darth Plagueis The Wise? I thought not. It’s not a story the Jedi would tell you. It’s a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life… He had such a knowledge of the dark side that he could even keep the ones he cared about from dying. The dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so powerful… the only thing he was afraid of was losing his power, which eventually, of course, he did. Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his sleep. Ironic. He could save others from death, but not himself. </p>
         </div>
+
     </div>
-    {% endblock %}
+
+    <div class ="col-md-6">
+        <div class ="card">
+            <h2 style="color: white">Matthew Halligan</h2>
+            <h5 style="color: white"> ENTRY DESCRIPTION</h5>
+           <!-- Add image here -->
+            <div class ="fakeimg" style ="height: 200px; background-color: dimgray">Image</div>
+            <p style="color: white"> Did you ever hear the tragedy of Darth Plagueis The Wise? I thought not. It’s not a story the Jedi would tell you. It’s a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life… He had such a knowledge of the dark side that he could even keep the ones he cared about from dying. The dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so powerful… the only thing he was afraid of was losing his power, which eventually, of course, he did. Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his sleep. Ironic. He could save others from death, but not himself. </p>
+        </div>
+
+        <div class ="card">
+            <h2 style="color: white">Ben Caruso</h2>
+            <h5 style="color: white"> ENTRY DESCRIPTION</h5>
+           <!-- Add image here -->
+            <div class ="fakeimg" style ="height: 200px; background-color: dimgray">Image</div>
+            <p style="color: white"> Did you ever hear the tragedy of Darth Plagueis The Wise? I thought not. It’s not a story the Jedi would tell you. It’s a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life… He had such a knowledge of the dark side that he could even keep the ones he cared about from dying. The dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so powerful… the only thing he was afraid of was losing his power, which eventually, of course, he did. Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his sleep. Ironic. He could save others from death, but not himself. </p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
