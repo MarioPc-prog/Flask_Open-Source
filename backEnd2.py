@@ -14,7 +14,7 @@ import pymysql
 
 class BackEndInterface:
 
-    def __init__(self, filename, debug=False):
+   def __init__(self, filename, debug=False):
         mysql_connection = pymysql.connect(host='localhost', user='root',password='cs205',db='205final',charset='utf8',cursorclass= pymysql.cursors.DictCursor)
         self.connection = mysql_connection
         self.connections = []
@@ -23,14 +23,14 @@ class BackEndInterface:
         self.currentTerminal = mysql_connection.cursor()
  
 
-    def disconnectFromServer(self):
+   def disconnectFromServer(self):
         try:
             self.connections[0].close()
             print("The connection has closed")
         except Error as e:
             print(e)
 
-    def createrowUser(self, username, password, email):
+   def createrowUser(self, username, password, email):
         try:
 
             MySQL_Create_Row_Users = "INSERT INTO USERS(UserName, Password, Email) VALUES (%s, %s, %s)"
@@ -50,7 +50,7 @@ class BackEndInterface:
 
             print(e)
 
-    def deleteRowUser(self, username, password):
+   def deleteRowUser(self, username, password):
         MySQL_Delete_User = """DELETE FROM USERS WHERE UserName=%s AND Password=%s"""
         dataCommand = (username, password)
         try:
@@ -62,7 +62,7 @@ class BackEndInterface:
         except Error as e:
             print(e)
 
-    def createFileTable(self):
+   def createFileTable(self):
 
         MySQL_Create_File_Table = """CREATE TABLE ASSETS (
                                          FileID int NOT NULL AUTO_INCREMENT,
@@ -85,33 +85,33 @@ class BackEndInterface:
 
 
 
-    def createRowAssetTable(self, FileName, FileDescription):
+   def createRowAssetTable(self, FileName, FileDescription):
 
        FileLocation = "static/" + FileName
-        FileImageLocation = "static/Images/"+ FileName #support for images not available currently
+       FileImageLocation = "static/Images/"+ FileName #support for images not available currently
 
 
-        try:
+       try:
 
-            MySQL_Create_Row_Asset = """INSERT INTO ASSETS (FileName, FileLocation, FileDescription, ImageLocation) VALUES (%s, %s, %s, %s)"""
+           MySQL_Create_Row_Asset = """INSERT INTO ASSETS (FileName, FileLocation, FileDescription, ImageLocation) VALUES (%s, %s, %s, %s)"""
 
-            dataAsset = (FileName, FileLocation, FileDescription, FileImageLocation)
+           dataAsset = (FileName, FileLocation, FileDescription, FileImageLocation)
 
     
 
-            self.currentTerminal = self.connections[0].cursor()
+           self.currentTerminal = self.connections[0].cursor()
 
-            print("updated the current terminal")
+           print("updated the current terminal")
 
-            self.currentTerminal.execute(MySQL_Create_Row_Asset, dataAsset)
+           self.currentTerminal.execute(MySQL_Create_Row_Asset, dataAsset)
 
-            self.connections[0].commit()
+           self.connections[0].commit()
 
-        except Error as e:
+       except Error as e:
 
-            print(e)
+           print(e)
 
-    def deleteRowAsset(self, filename):
+   def deleteRowAsset(self, filename):
 
         MySQL_Delete_Asset = """DELETE FROM ASSETS WHERE FileName=%s"""
 
@@ -132,7 +132,7 @@ class BackEndInterface:
 
             print(e)
 
-    def selectXfromAssets(self, x):
+   def selectXfromAssets(self, x):
 
         query = """SELECT * FROM ASSETS LIMIT """ + str(x)
 
@@ -160,7 +160,7 @@ class BackEndInterface:
             print(e)
 
 
-    def selectAssetToDownload(self, AssetName):
+   def selectAssetToDownload(self, AssetName):
 
         MySQL_Asset_Download = """SELECT FileLocation FROM ASSETS WHERE FileName=%s"""
         dataCommand = (AssetName)
@@ -175,14 +175,14 @@ class BackEndInterface:
 
 
 
-    def passwordSaltHash(self, password):
+   def passwordSaltHash(self, password):
         salt = hashlib.sha256(os.urandom(60)).hexdigest().encode('ascii')
         passwordHash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'), salt, 100000)
         passwordHash = binascii.hexlify(passwordHash)
 
         return (salt + passwordHash).decode('ascii')
 
-    def passwordVerify(self, stored_password, provided_password):
+   def passwordVerify(self, stored_password, provided_password):
         salt = stored_password[:64]
         stored_password = stored_password[64:]
         pwdhash = hashlib.pbkdf2_hmac('sha512',
@@ -195,7 +195,7 @@ class BackEndInterface:
         return pwdhash == stored_password
 
 
-    def verifyUser(self, userEmail, userPassword):
+   def verifyUser(self, userEmail, userPassword):
         # This function assumes that no two of the same email will be allowed
 
         MySQL_Verify_User = """SELECT Password FROM USERS WHERE Email='""" + str(userEmail) + """'"""
@@ -230,7 +230,7 @@ class BackEndInterface:
             print(e)
 
 
-    def signUser(self, userEmail, username, userPassword):
+   def signUser(self, userEmail, username, userPassword):
         # Sanitize input here
         s = html.escape("""& < " ' >""")  # s = '&amp; &lt; &quot; &#x27; &gt;'
 
@@ -243,7 +243,10 @@ class BackEndInterface:
             else:
                 self.createrowUser(userEmail, username, self.passwordSaltHash(userPassword))
 
-    def isUser(self, userEmail):
+        except Exception as e:
+
+            print(e)
+   def isUser(self, userEmail):
          MySQL_Check_User = """SELECT Password FROM USERS WHERE Email='""" + str(userEmail) + """'"""
          print(MySQL_Check_User)
 
@@ -263,7 +266,7 @@ class BackEndInterface:
          except Exception as e:
              print(e)
 
-    def signUser(self, username, userPassword, userEmail):
+   def signUser(self, username, userPassword, userEmail):
 
         try:
 
@@ -279,7 +282,7 @@ class BackEndInterface:
         except Error as e:
             print(e)
 
-    def sanitizeInput(self, input):
+   def sanitizeInput(self, input):
         # Transform input to lowercase
         input = input.lower()
 

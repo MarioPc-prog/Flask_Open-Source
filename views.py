@@ -7,7 +7,7 @@ from werkzeug.utils import secure_filename
 
 from backEnd2 import BackEndInterface
 
-import ServerInteraction
+
 
 serverInterface = BackEndInterface("205final")
 # serverInterface.connectToServer()
