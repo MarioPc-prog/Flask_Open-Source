@@ -7,6 +7,7 @@ from mysql.connector import Error
 import html
 
 import pandas as pd
+
 import pymysql
 
 
@@ -21,7 +22,7 @@ class BackEndInterface:
         self.connections.append(mysql_connection)
 
         self.currentTerminal = mysql_connection.cursor()
- 
+
 
     def disconnectFromServer(self):
         try:
@@ -53,6 +54,7 @@ class BackEndInterface:
     def deleteRowUser(self, username, password):
         MySQL_Delete_User = """DELETE FROM USERS WHERE UserName=%s AND Password=%s"""
         dataCommand = (username, password)
+
         try:
             self.currentTerminal = self.connections[0].cursor()
             print("updated the current terminal")
@@ -65,13 +67,13 @@ class BackEndInterface:
     def createFileTable(self):
 
         MySQL_Create_File_Table = """CREATE TABLE ASSETS (
-                                         FileID int NOT NULL AUTO_INCREMENT,
-                                         FileName varchar(255) NOT NULL,
-                                         FileLocation varchar(255) NOT NULL,
-                                         FileDescription varchar(255) NOT NULL,
-                                         ImageLocation varchar(255),
-                                         PRIMARY KEY (FileID)
-                                         );"""
+                     FileID int NOT NULL AUTO_INCREMENT,
+                     FileName varchar(255) NOT NULL,
+                     FileLocation varchar(255) NOT NULL,
+                     FileDescription varchar(255) NOT NULL,
+                     ImageLocation varchar(255),
+                     PRIMARY KEY (FileID)
+                     );"""
         try:
             self.currentTerminal = self.connections[0].cursor()
             print("updated the current terminal")
@@ -87,7 +89,7 @@ class BackEndInterface:
 
     def createRowAssetTable(self, FileName, FileDescription):
 
-       FileLocation = "static/" + FileName
+        FileLocation = "static/" + FileName
         FileImageLocation = "static/Images/"+ FileName #support for images not available currently
 
 
@@ -97,7 +99,7 @@ class BackEndInterface:
 
             dataAsset = (FileName, FileLocation, FileDescription, FileImageLocation)
 
-    
+
 
             self.currentTerminal = self.connections[0].cursor()
 
@@ -151,8 +153,8 @@ class BackEndInterface:
             print(fileInfo)
 
 
-            
-            
+
+
             return fileInfo
 
         except Error as e:
@@ -171,6 +173,7 @@ class BackEndInterface:
             assetLocation = self.currentTerminal.execute(MySQL_Asset_Download, dataCommand)
             return assetLocation
         except Error as e:
+
             print(e)
 
 
@@ -186,9 +189,9 @@ class BackEndInterface:
         salt = stored_password[:64]
         stored_password = stored_password[64:]
         pwdhash = hashlib.pbkdf2_hmac('sha512',
-                                      provided_password.encode('utf-8'),
-                                      salt.encode('ascii'),
-                                      100000)
+                  provided_password.encode('utf-8'),
+                  salt.encode('ascii'),
+                  100000)
 
         pwdhash = binascii.hexlify(pwdhash).decode('ascii')
 
@@ -223,10 +226,12 @@ class BackEndInterface:
                 return passwordVerify(str(passwordFinal[0]), userPassword)
 
             else:
+
                 return False
 
 
         except Error as e:
+
             print(e)
 
 
@@ -247,24 +252,25 @@ class BackEndInterface:
             print(e)
 
     def isUser(self, userEmail):
-         MySQL_Check_User = """SELECT Password FROM USERS WHERE Email='""" + str(userEmail) + """'"""
-         print(MySQL_Check_User)
 
-         try:
-             self.currentTerminal = self.connections[0].cursor()
+        MySQL_Check_User = """SELECT Password FROM USERS WHERE Email='""" + str(userEmail) + """'"""
+        print(MySQL_Check_User)
 
-             print("Searching for user")
+        try:
+            self.currentTerminal = self.connections[0].cursor()
 
-             result = self.currentTerminal.execute(MySQL_Check_User)
+            print("Searching for user")
 
-             if result == 0:
-                 print("User desn't exist. isUser returns False")
-                 return False
-             else:
-                 print("User exists. isUser returns True")
-                 return True
-         except Exception as e:
-             print(e)
+            result = self.currentTerminal.execute(MySQL_Check_User)
+
+            if result == 0:
+                print("User desn't exist. isUser returns False")
+                return False
+            else:
+                print("User exists. isUser returns True")
+            return True
+        except Exception as e:
+            print(e)
 
     def signUser(self, username, userPassword, userEmail):
 
